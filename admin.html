@@ -1,0 +1,2800 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Bharat – Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+        /* ============================================
+           ROOT VARIABLES & RESET
+           ============================================ */
+        :root {
+            --color-navy: #0A192F;
+            --color-saffron: #FF9933;
+            --color-green: #138808;
+            --color-white: #FFFFFF;
+            --color-light-gray: #F5F7FA;
+            --color-dark-gray: #2C3E50;
+            --color-border: #E0E6ED;
+            --color-success: #27AE60;
+            --color-danger: #E74C3C;
+            --color-warning: #F39C12;
+            --color-info: #3498DB;
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.17);
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-light-gray);
+            color: var(--color-dark-gray);
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: #1a1f3a;
+            color: #e0e6ed;
+        }
+
+        /* ============================================
+           LOGIN SCREEN
+           ============================================ */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(135deg, var(--color-navy) 0%, #1a2952 100%);
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-glass);
+            width: 100%;
+            max-width: 420px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-logo-saffron {
+            color: var(--color-saffron);
+        }
+
+        .login-logo-green {
+            color: var(--color-green);
+        }
+
+        .login-logo-navy {
+            color: var(--color-navy);
+        }
+
+        .login-subtitle {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--color-navy);
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-saffron);
+            box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, var(--color-navy) 0%, #1a2952 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .demo-credentials {
+            background: #f0f7ff;
+            border-left: 4px solid var(--color-info);
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+            color: #333;
+        }
+
+        /* ============================================
+           MAIN ADMIN DASHBOARD LAYOUT
+           ============================================ */
+        .admin-container {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            background: var(--color-light-gray);
+        }
+
+        .admin-container.dark-mode {
+            background: #1a1f3a;
+        }
+
+        /* ============================================
+           SIDEBAR NAVIGATION
+           ============================================ */
+        .sidebar {
+            width: 280px;
+            background: var(--color-navy);
+            overflow-y: auto;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+            position: fixed;
+            height: 100%;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 2px solid rgba(255, 153, 51, 0.2);
+            text-align: center;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+
+        .sidebar-logo-accent {
+            color: var(--color-saffron);
+        }
+
+        .sidebar-tagline {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 1.5rem 0;
+        }
+
+        .sidebar-menu li {
+            margin: 0.5rem 0;
+        }
+
+        .sidebar-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-weight: 500;
+            text-decoration: none;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .sidebar-menu-item:hover {
+            background: rgba(255, 153, 51, 0.1);
+            color: white;
+            border-left-color: var(--color-saffron);
+        }
+
+        .sidebar-menu-item.active {
+            background: rgba(255, 153, 51, 0.15);
+            color: var(--color-saffron);
+            border-left-color: var(--color-saffron);
+            font-weight: 600;
+        }
+
+        .sidebar-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 0;
+            right: 0;
+            padding: 0 1.5rem;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, var(--color-danger) 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ============================================
+           MAIN CONTENT AREA
+           ============================================ */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* ============================================
+           TOP NAVBAR
+           ============================================ */
+        .navbar {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 500;
+        }
+
+        .navbar.dark-mode {
+            background: #252d48;
+            border-bottom: 1px solid rgba(255, 153, 51, 0.2);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .toggle-sidebar-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-navy);
+            transition: var(--transition-fast);
+            display: none;
+        }
+
+        .navbar.dark-mode .toggle-sidebar-btn {
+            color: white;
+        }
+
+        .toggle-sidebar-btn:hover {
+            color: var(--color-saffron);
+        }
+
+        .navbar-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .navbar.dark-mode .navbar-title {
+            color: white;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 250px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+        }
+
+        .navbar.dark-mode .search-bar input {
+            background: #3a4557;
+            border-color: #4a5a7a;
+            color: white;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--color-saffron);
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1rem;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--color-navy);
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .navbar.dark-mode .action-btn {
+            color: white;
+        }
+
+        .action-btn:hover {
+            color: var(--color-saffron);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: var(--color-danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-saffron), var(--color-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--color-navy);
+        }
+
+        .navbar.dark-mode .user-name {
+            color: white;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        /* ============================================
+           DROPDOWN MENUS
+           ============================================ */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            min-width: 200px;
+            margin-top: 0.5rem;
+        }
+
+        .navbar.dark-mode .dropdown-content {
+            background: #252d48;
+            border-color: #4a5a7a;
+        }
+
+        .dropdown-content.active {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            padding: 0.8rem 1.2rem;
+            color: var(--color-dark-gray);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border-bottom: 1px solid var(--color-border);
+            font-size: 0.9rem;
+        }
+
+        .navbar.dark-mode .dropdown-item {
+            color: #e0e6ed;
+            border-bottom-color: #4a5a7a;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--color-light-gray);
+            color: var(--color-saffron);
+        }
+
+        .navbar.dark-mode .dropdown-item:hover {
+            background: #3a4557;
+        }
+
+        /* ============================================
+           CONTENT AREA
+           ============================================ */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* ============================================
+           GRID & CARDS
+           ============================================ */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .admin-container.dark-mode .card {
+            background: #252d48;
+            border-color: #3a4557;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .admin-container.dark-mode .card-title {
+            color: white;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-container.dark-mode .card-value {
+            color: white;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .card-stat {
+            font-size: 0.8rem;
+            color: var(--color-success);
+            font-weight: 600;
+        }
+
+        .card-stat.negative {
+            color: var(--color-danger);
+        }
+
+        /* ============================================
+           BUTTONS & FORMS
+           ============================================ */
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-navy) 0%, #1a2952 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--color-saffron) 0%, #ff8c1a 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--color-green) 0%, #0f6a35 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--color-danger) 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--color-saffron);
+            color: var(--color-saffron);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 153, 51, 0.1);
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-navy);
+            font-size: 0.9rem;
+        }
+
+        .admin-container.dark-mode .form-group label {
+            color: white;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+            color: var(--color-dark-gray);
+        }
+
+        .admin-container.dark-mode .form-group input,
+        .admin-container.dark-mode .form-group textarea,
+        .admin-container.dark-mode .form-group select {
+            background: #3a4557;
+            border-color: #4a5a7a;
+            color: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-saffron);
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* ============================================
+           TABLES
+           ============================================ */
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-top: 1.5rem;
+        }
+
+        .admin-container.dark-mode .table-container {
+            background: #252d48;
+            border: 1px solid #3a4557;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, var(--color-navy) 0%, #1a2952 100%);
+            color: white;
+        }
+
+        .table th {
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            padding: 1rem 1.2rem;
+            border-top: 1px solid var(--color-border);
+            color: var(--color-dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .admin-container.dark-mode .table td {
+            border-top-color: #3a4557;
+            color: #e0e6ed;
+        }
+
+        .table tbody tr {
+            transition: var(--transition-fast);
+        }
+
+        .table tbody tr:hover {
+            background: var(--color-light-gray);
+        }
+
+        .admin-container.dark-mode .table tbody tr:hover {
+            background: #3a4557;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.active {
+            background: rgba(39, 174, 96, 0.2);
+            color: var(--color-success);
+        }
+
+        .status-badge.inactive {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--color-danger);
+        }
+
+        .status-badge.pending {
+            background: rgba(243, 156, 18, 0.2);
+            color: var(--color-warning);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* ============================================
+           MODALS
+           ============================================ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            box-shadow: var(--shadow-glass);
+        }
+
+        .admin-container.dark-mode .modal-content {
+            background: #252d48;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 1rem;
+        }
+
+        .admin-container.dark-mode .modal-header {
+            border-bottom-color: #3a4557;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-navy);
+        }
+
+        .admin-container.dark-mode .modal-title {
+            color: white;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            color: var(--color-navy);
+        }
+
+        .admin-container.dark-mode .modal-close:hover {
+            color: white;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        /* ============================================
+           CHARTS & GRAPHS (CSS ONLY)
+           ============================================ */
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            margin-top: 1.5rem;
+        }
+
+        .admin-container.dark-mode .chart-container {
+            background: #252d48;
+            border: 1px solid #3a4557;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--color-navy);
+        }
+
+        .admin-container.dark-mode .chart-title {
+            color: white;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 1rem;
+            height: 300px;
+            margin-top: 1rem;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(135deg, var(--color-saffron) 0%, #ff8c1a 100%);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            min-width: 40px;
+            transition: var(--transition-smooth);
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 2rem; }
+
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .success-text {
+            color: var(--color-success);
+        }
+
+        .danger-text {
+            color: var(--color-danger);
+        }
+
+        .warning-text {
+            color: var(--color-warning);
+        }
+
+        .info-text {
+            color: var(--color-info);
+        }
+
+        /* ============================================
+           PAGINATION
+           ============================================ */
+        .pagination {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .pagination button {
+            padding: 0.5rem 0.8rem;
+            border: 2px solid var(--color-border);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition-fast);
+            font-size: 0.9rem;
+        }
+
+        .admin-container.dark-mode .pagination button {
+            background: #3a4557;
+            border-color: #4a5a7a;
+            color: white;
+        }
+
+        .pagination button:hover {
+            border-color: var(--color-saffron);
+            color: var(--color-saffron);
+        }
+
+        .pagination button.active {
+            background: linear-gradient(135deg, var(--color-saffron) 0%, #ff8c1a 100%);
+            border-color: var(--color-saffron);
+            color: white;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 1024px) {
+            .grid-4 {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                z-index: 1001;
+            }
+
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .toggle-sidebar-btn {
+                display: block;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .navbar-right {
+                gap: 1rem;
+            }
+
+            .search-bar {
+                width: 150px;
+            }
+
+            .search-bar input {
+                font-size: 0.8rem;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .table {
+                font-size: 0.8rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 0.75rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar-header {
+                padding: 1rem;
+            }
+
+            .sidebar-logo {
+                font-size: 1.2rem;
+            }
+
+            .sidebar-tagline {
+                font-size: 0.6rem;
+            }
+
+            .navbar {
+                flex-wrap: wrap;
+                padding: 0.75rem;
+            }
+
+            .navbar-title {
+                font-size: 1rem;
+            }
+
+            .search-bar {
+                width: 100%;
+                order: 3;
+                margin-top: 0.5rem;
+            }
+
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .table {
+                font-size: 0.7rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 0.5rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+        }
+    </style>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body><!-- ============================================
+         LOGIN SCREEN
+         ============================================ -->
+  <div id="loginScreen" class="login-container">
+   <div class="login-box">
+    <div class="login-header">
+     <div class="login-logo"><span class="login-logo-navy">Digital</span> <span class="login-logo-saffron">Bharat</span>
+     </div>
+     <p class="login-subtitle">Admin Panel</p>
+    </div>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+     <div class="form-group"><label for="username">Username</label> <input type="text" id="username" value="admin" placeholder="Enter username" required>
+     </div>
+     <div class="form-group"><label for="password">Password</label> <input type="password" id="password" value="admin123" placeholder="Enter password" required>
+     </div><button type="submit" class="login-btn">Login</button>
+    </form>
+    <div class="demo-credentials"><strong>Demo Credentials:</strong><br>
+      Username: <strong>admin</strong><br>
+      Password: <strong>admin123</strong>
+    </div>
+   </div>
+  </div><!-- ============================================
+         MAIN ADMIN DASHBOARD
+         ============================================ -->
+  <div id="adminPanel" class="admin-container" style="display: none;"><!-- SIDEBAR -->
+   <aside class="sidebar">
+    <div class="sidebar-header">
+     <div class="sidebar-logo">
+      Digital<span class="sidebar-logo-accent">Bharat</span>
+     </div>
+     <p class="sidebar-tagline">Admin Panel v1.0</p>
+    </div>
+    <ul class="sidebar-menu">
+     <li><a href="#" class="sidebar-menu-item active" onclick="switchTab('dashboard', event)"> <span class="sidebar-icon">📊</span> Dashboard Overview </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('states', event)"> <span class="sidebar-icon">🗺️</span> Manage States </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('history', event)"> <span class="sidebar-icon">📜</span> History Content </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('government', event)"> <span class="sidebar-icon">🏛️</span> Government </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('defence', event)"> <span class="sidebar-icon">🛡️</span> Defence </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('sports', event)"> <span class="sidebar-icon">🏏</span> Sports </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('tourism', event)"> <span class="sidebar-icon">🏰</span> Tourism </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('culture', event)"> <span class="sidebar-icon">🎉</span> Culture &amp; Festivals </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('media', event)"> <span class="sidebar-icon">🖼️</span> Media Gallery </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('users', event)"> <span class="sidebar-icon">👥</span> Users Management </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('messages', event)"> <span class="sidebar-icon">📧</span> Messages </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('analytics', event)"> <span class="sidebar-icon">📈</span> Analytics </a></li>
+     <li><a href="#" class="sidebar-menu-item" onclick="switchTab('settings', event)"> <span class="sidebar-icon">⚙️</span> Settings </a></li>
+    </ul>
+    <div class="sidebar-footer"><button class="logout-btn" onclick="handleLogout()">🚪 Logout</button>
+    </div>
+   </aside><!-- MAIN CONTENT -->
+   <div class="main-content"><!-- NAVBAR -->
+    <nav class="navbar">
+     <div class="navbar-left"><button class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</button>
+      <h1 class="navbar-title">Dashboard</h1>
+     </div>
+     <div class="navbar-right">
+      <div class="search-bar"><span class="search-icon">🔍</span> <input type="text" placeholder="Search..." id="searchInput" onkeyup="handleSearch()">
+      </div>
+      <div class="dropdown"><button class="action-btn" onclick="toggleNotifications()"> 🔔 <span class="notification-badge">5</span> </button>
+       <div id="notificationDropdown" class="dropdown-content">
+        <div class="dropdown-item">
+         📢 New user registered
+        </div>
+        <div class="dropdown-item">
+         📝 New contact message
+        </div>
+        <div class="dropdown-item">
+         ✅ Content published
+        </div>
+        <div class="dropdown-item">
+         ⚠️ System update available
+        </div>
+        <div class="dropdown-item">
+         📊 Report generated
+        </div>
+       </div>
+      </div>
+      <div class="dropdown">
+       <div class="user-profile" onclick="toggleProfileMenu()">
+        <div class="user-avatar">
+         RR
+        </div>
+        <div class="user-info">
+         <div class="user-name">
+          Rohit Rawat
+         </div>
+         <div class="user-role">
+          Administrator
+         </div>
+        </div>
+       </div>
+       <div id="profileDropdown" class="dropdown-content">
+        <div class="dropdown-item">
+         👤 My Profile
+        </div>
+        <div class="dropdown-item">
+         ⚙️ Settings
+        </div>
+        <div class="dropdown-item">
+         🔐 Change Password
+        </div>
+        <div class="dropdown-item" onclick="handleLogout()">
+         🚪 Logout
+        </div>
+       </div>
+      </div><button class="action-btn" onclick="toggleDarkMode()">🌙</button>
+     </div>
+    </nav><!-- CONTENT AREA -->
+    <div class="content-area"><!-- DASHBOARD OVERVIEW -->
+     <div id="dashboard" class="content-section active">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+       <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy);">Dashboard Overview</h2><button class="btn btn-secondary" onclick="exportData()">📥 Export Data</button>
+      </div><!-- KEY METRICS GRID -->
+      <div class="grid grid-4">
+       <div class="card">
+        <div class="card-header">
+         <div>
+          <div class="card-title">
+           Total States
+          </div>
+          <div class="card-value">
+           28
+          </div>
+          <div class="card-stat">
+           ✓ Active
+          </div>
+         </div>
+         <div class="card-icon">
+          🗺️
+         </div>
+        </div>
+       </div>
+       <div class="card">
+        <div class="card-header">
+         <div>
+          <div class="card-title">
+           Union Territories
+          </div>
+          <div class="card-value">
+           8
+          </div>
+          <div class="card-stat">
+           ✓ Active
+          </div>
+         </div>
+         <div class="card-icon">
+          🏝️
+         </div>
+        </div>
+       </div>
+       <div class="card">
+        <div class="card-header">
+         <div>
+          <div class="card-title">
+           Total Articles
+          </div>
+          <div class="card-value">
+           250
+          </div>
+          <div class="card-stat">
+           ↑ +12 this month
+          </div>
+         </div>
+         <div class="card-icon">
+          📜
+         </div>
+        </div>
+       </div>
+       <div class="card">
+        <div class="card-header">
+         <div>
+          <div class="card-title">
+           Registered Users
+          </div>
+          <div class="card-value">
+           1,250
+          </div>
+          <div class="card-stat">
+           ↑ +45 this week
+          </div>
+         </div>
+         <div class="card-icon">
+          👥
+         </div>
+        </div>
+       </div>
+       <div class="card">
+        <div class="card-header">
+         <div>
+          <div class="card-title">
+           Total Messages
+          </div>
+          <div class="card-value">
+           56
+          </div>
+          <div class="card-stat">
+           🔴 5 unread
+          </div>
+         </div>
+         <div class="card-icon">
+          📧
+         </div>
+        </div>
+       </div>
+       <div class="card">
+        <div class="card-header">
+         <div>
+          <div class="card-title">
+           Site Visitors
+          </div>
+          <div class="card-value">
+           85,432
+          </div>
+          <div class="card-stat">
+           ↑ +15% this month
+          </div>
+         </div>
+         <div class="card-icon">
+          📊
+         </div>
+        </div>
+       </div>
+       <div class="card">
+        <div class="card-header">
+         <div>
+          <div class="card-title">
+           Media Files
+          </div>
+          <div class="card-value">
+           342
+          </div>
+          <div class="card-stat">
+           ✓ Storage: 2.3GB
+          </div>
+         </div>
+         <div class="card-icon">
+          🖼️
+         </div>
+        </div>
+       </div>
+       <div class="card">
+        <div class="card-header">
+         <div>
+          <div class="card-title">
+           System Status
+          </div>
+          <div class="card-value" style="color: var(--color-success);">
+           ✓ Online
+          </div>
+          <div class="card-stat">
+           Uptime: 99.9%
+          </div>
+         </div>
+         <div class="card-icon">
+          🟢
+         </div>
+        </div>
+       </div>
+      </div><!-- CHARTS SECTION -->
+      <div class="chart-container">
+       <h3 class="chart-title">📊 Monthly Visitors Chart</h3>
+       <div class="bar-chart" id="visitorChart">
+        <div class="bar" style="height: 60%;"><span class="bar-label">Jan</span>
+        </div>
+        <div class="bar" style="height: 75%;"><span class="bar-label">Feb</span>
+        </div>
+        <div class="bar" style="height: 85%;"><span class="bar-label">Mar</span>
+        </div>
+        <div class="bar" style="height: 70%;"><span class="bar-label">Apr</span>
+        </div>
+        <div class="bar" style="height: 90%;"><span class="bar-label">May</span>
+        </div>
+        <div class="bar" style="height: 95%;"><span class="bar-label">Jun</span>
+        </div>
+       </div>
+      </div><!-- RECENT ACTIVITY TABLE -->
+      <div class="chart-container">
+       <h3 class="chart-title">📈 Recent Activity</h3>
+       <div class="table-container">
+        <table class="table">
+         <thead>
+          <tr>
+           <th>Activity</th>
+           <th>User</th>
+           <th>Date &amp; Time</th>
+           <th>Status</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>New State Added</td>
+           <td>Admin Raj</td>
+           <td>Dec 15, 2024 | 10:30 AM</td>
+           <td><span class="status-badge active">Completed</span></td>
+          </tr>
+          <tr>
+           <td>Article Published</td>
+           <td>Content Team</td>
+           <td>Dec 14, 2024 | 3:45 PM</td>
+           <td><span class="status-badge active">Completed</span></td>
+          </tr>
+          <tr>
+           <td>User Registered</td>
+           <td>Priya Singh</td>
+           <td>Dec 14, 2024 | 2:15 PM</td>
+           <td><span class="status-badge active">Completed</span></td>
+          </tr>
+          <tr>
+           <td>Message Received</td>
+           <td>Visitor (Contact Form)</td>
+           <td>Dec 13, 2024 | 11:20 AM</td>
+           <td><span class="status-badge pending">Pending</span></td>
+          </tr>
+          <tr>
+           <td>Media Uploaded</td>
+           <td>Gallery Manager</td>
+           <td>Dec 12, 2024 | 5:00 PM</td>
+           <td><span class="status-badge active">Completed</span></td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- MANAGE STATES -->
+     <div id="states" class="content-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+       <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy);">Manage States &amp; UTs</h2><button class="btn btn-primary" onclick="openStateModal()">➕ Add New State</button>
+      </div><!-- ADD STATE FORM (Hidden Modal) -->
+      <div id="stateModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Add/Edit State</h3><button class="modal-close" onclick="closeStateModal()">✕</button>
+        </div>
+        <form onsubmit="handleStateSubmit(event)">
+         <div class="form-group"><label for="stateName">State Name</label> <input type="text" id="stateName" value="Maharashtra" placeholder="Enter state name" required>
+         </div>
+         <div class="form-group"><label for="stateCapital">Capital</label> <input type="text" id="stateCapital" value="Mumbai" placeholder="Enter capital name" required>
+         </div>
+         <div class="form-group"><label for="statePopulation">Population</label> <input type="text" id="statePopulation" value="112,374,333" placeholder="Enter population" required>
+         </div>
+         <div class="form-group"><label for="stateStatus">Status</label> <select id="stateStatus" required> <option value="Active">Active</option> <option value="Inactive">Inactive</option> </select>
+         </div>
+         <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeStateModal()">Cancel</button> <button type="submit" class="btn btn-success">Save State</button>
+         </div>
+        </form>
+       </div>
+      </div><!-- STATES TABLE -->
+      <div class="table-container">
+       <table class="table" id="statesTable">
+        <thead>
+         <tr>
+          <th>State/UT Name</th>
+          <th>Capital</th>
+          <th>Population</th>
+          <th>Status</th>
+          <th>Actions</th>
+         </tr>
+        </thead>
+        <tbody id="statesTableBody"><!-- Populated by JavaScript -->
+        </tbody>
+       </table>
+      </div>
+      <div class="pagination" id="statesPagination"></div>
+     </div><!-- MANAGE HISTORY CONTENT -->
+     <div id="history" class="content-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+       <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy);">History Content Management</h2><button class="btn btn-primary" onclick="openHistoryModal()">➕ Add Article</button>
+      </div><!-- ARTICLE MODAL -->
+      <div id="historyModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Add/Edit Article</h3><button class="modal-close" onclick="closeHistoryModal()">✕</button>
+        </div>
+        <form onsubmit="handleHistorySubmit(event)">
+         <div class="form-group"><label for="articleTitle">Title</label> <input type="text" id="articleTitle" value="Ancient India" placeholder="Article title" required>
+         </div>
+         <div class="form-group"><label for="articleDesc">Description</label> <textarea id="articleDesc" placeholder="Article content" required>Ancient India, spanning from the Indus Valley Civilization (3300-1300 BCE) to the Gupta Empire (320-550 CE), witnessed extraordinary developments in science, mathematics, philosophy, and art...</textarea>
+         </div>
+         <div class="form-group"><label for="articleDate">Publish Date</label> <input type="date" id="articleDate" value="2024-01-15" required>
+         </div>
+         <div class="form-group"><label for="articleStatus">Status</label> <select id="articleStatus" required> <option value="Published">Published</option> <option value="Draft">Draft</option> </select>
+         </div>
+         <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeHistoryModal()">Cancel</button> <button type="submit" class="btn btn-success">Save Article</button>
+         </div>
+        </form>
+       </div>
+      </div><!-- ARTICLES GRID -->
+      <div class="grid grid-2" id="historyGrid"><!-- Populated by JavaScript -->
+      </div>
+     </div><!-- GOVERNMENT SECTION -->
+     <div id="government" class="content-section">
+      <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy); margin-bottom: 2rem;">Government Structure</h2>
+      <div class="grid grid-2"><!-- PRESIDENT CARD -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">👔 President of India</h3><button class="btn btn-secondary btn-small" onclick="openGovModal('president')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem;">
+         <p style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Droupadi Murmu</p>
+         <p style="color: #999; font-size: 0.9rem;">Term: 2022 - 2027</p>
+         <p style="margin-top: 1rem; line-height: 1.6;">President Droupadi Murmu is the 15th President of India and the first tribal president of the nation. She has been serving with distinction...</p>
+        </div>
+       </div><!-- PRIME MINISTER CARD -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">🎩 Prime Minister of India</h3><button class="btn btn-secondary btn-small" onclick="openGovModal('pm')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem;">
+         <p style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Narendra Damodardas Modi</p>
+         <p style="color: #999; font-size: 0.9rem;">Term: 2019 - 2024</p>
+         <p style="margin-top: 1rem; line-height: 1.6;">PM Modi is the 14th Prime Minister of India, leading the nation with focus on economic development and infrastructure...</p>
+        </div>
+       </div><!-- PARLIAMENT CARD -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">🏛️ Parliament of India</h3><button class="btn btn-secondary btn-small" onclick="openGovModal('parliament')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem;">
+         <p style="font-weight: 600; margin-bottom: 0.5rem;">Lok Sabha</p>
+         <p style="color: #999; margin-bottom: 1rem;">Lower House - 545 Members</p>
+         <p style="font-weight: 600; margin-bottom: 0.5rem;">Rajya Sabha</p>
+         <p style="color: #999;">Upper House - 245 Members</p>
+        </div>
+       </div><!-- CONSTITUTION CARD -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">📜 Constitution of India</h3><button class="btn btn-secondary btn-small" onclick="openGovModal('constitution')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem;">
+         <p style="font-weight: 600; margin-bottom: 0.5rem;">Adopted: 26 January 1950</p>
+         <p style="color: #999; margin-bottom: 1rem;">Drafted by Dr. Ambedkar and his team</p>
+         <p style="font-weight: 600;">Articles: 395 (Original)</p>
+         <p style="color: #999;">Amendments: 104+</p>
+        </div>
+       </div>
+      </div><!-- GOVERNMENT MODAL -->
+      <div id="governmentModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Edit Government Information</h3><button class="modal-close" onclick="closeGovModal()">✕</button>
+        </div>
+        <form onsubmit="handleGovSubmit(event)">
+         <div class="form-group"><label for="govTitle">Title</label> <input type="text" id="govTitle" value="President of India" required>
+         </div>
+         <div class="form-group"><label for="govName">Name</label> <input type="text" id="govName" value="Droupadi Murmu" required>
+         </div>
+         <div class="form-group"><label for="govDescription">Description</label> <textarea id="govDescription" required></textarea>
+         </div>
+         <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeGovModal()">Cancel</button> <button type="submit" class="btn btn-success">Save Changes</button>
+         </div>
+        </form>
+       </div>
+      </div>
+     </div><!-- DEFENCE SECTION -->
+     <div id="defence" class="content-section">
+      <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy); margin-bottom: 2rem;">Defence Management</h2>
+      <div class="grid grid-3"><!-- ARMY -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">🎖️ Indian Army</h3><button class="btn btn-secondary btn-small" onclick="openDefenceModal('army')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem;">
+         <p style="font-size: 1.1rem; font-weight: 700; color: var(--color-green); margin-bottom: 0.5rem;">Active Personnel: 1.2M+</p>
+         <p style="color: #999; margin-bottom: 1rem;">Commander-in-Chief: President of India</p>
+         <p style="line-height: 1.6;">The Indian Army is the land-based branch of the Indian Armed Forces and forms the backbone of India's defence strategy...</p>
+        </div>
+       </div><!-- NAVY -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">⚓ Indian Navy</h3><button class="btn btn-secondary btn-small" onclick="openDefenceModal('navy')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem;">
+         <p style="font-size: 1.1rem; font-weight: 700; color: var(--color-info); margin-bottom: 0.5rem;">Active Personnel: 67,000+</p>
+         <p style="color: #999; margin-bottom: 1rem;">Chief of Naval Staff leads operations</p>
+         <p style="line-height: 1.6;">The Indian Navy protects India's maritime interests and operates across the Indian Ocean Region...</p>
+        </div>
+       </div><!-- AIR FORCE -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">✈️ Indian Air Force</h3><button class="btn btn-secondary btn-small" onclick="openDefenceModal('af')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem;">
+         <p style="font-size: 1.1rem; font-weight: 700; color: var(--color-saffron); margin-bottom: 0.5rem;">Active Personnel: 139,000+</p>
+         <p style="color: #999; margin-bottom: 1rem;">Chief of Air Staff: Senior leadership</p>
+         <p style="line-height: 1.6;">The IAF is one of the world's largest air forces, equipped with modern fighter jets and transport aircraft...</p>
+        </div>
+       </div>
+      </div><!-- DEFENCE MODAL -->
+      <div id="defenceModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Edit Defence Information</h3><button class="modal-close" onclick="closeDefenceModal()">✕</button>
+        </div>
+        <form onsubmit="handleDefenceSubmit(event)">
+         <div class="form-group"><label for="defenceTitle">Title</label> <input type="text" id="defenceTitle" value="Indian Army" required>
+         </div>
+         <div class="form-group"><label for="defencePersonnel">Personnel</label> <input type="text" id="defencePersonnel" value="1.2M+" required>
+         </div>
+         <div class="form-group"><label for="defenceDescription">Description</label> <textarea id="defenceDescription" required></textarea>
+         </div>
+         <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeDefenceModal()">Cancel</button> <button type="submit" class="btn btn-success">Save Changes</button>
+         </div>
+        </form>
+       </div>
+      </div>
+     </div><!-- SPORTS SECTION -->
+     <div id="sports" class="content-section">
+      <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy); margin-bottom: 2rem;">Sports Management</h2>
+      <div class="grid grid-3"><!-- CRICKET -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">🏏 Cricket</h3><button class="btn btn-secondary btn-small" onclick="openSportsModal('cricket')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem; text-align: center;">
+         <div style="font-size: 3rem; margin: 1rem 0;">
+          🏏
+         </div>
+         <p style="font-weight: 600; margin-bottom: 0.5rem;">India's Favorite Sport</p>
+         <p style="color: #999; font-size: 0.9rem;">Board: BCCI | Test Ranking: #1</p><button class="btn btn-primary btn-small" style="width: 100%; margin-top: 1rem;">📸 Upload Image</button>
+        </div>
+       </div><!-- HOCKEY -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">🏑 Hockey</h3><button class="btn btn-secondary btn-small" onclick="openSportsModal('hockey')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem; text-align: center;">
+         <div style="font-size: 3rem; margin: 1rem 0;">
+          🏑
+         </div>
+         <p style="font-weight: 600; margin-bottom: 0.5rem;">National Sport of India</p>
+         <p style="color: #999; font-size: 0.9rem;">Board: Hockey India | Olympic Medals: 12</p><button class="btn btn-primary btn-small" style="width: 100%; margin-top: 1rem;">📸 Upload Image</button>
+        </div>
+       </div><!-- OLYMPICS -->
+       <div class="card">
+        <div class="card-header">
+         <h3 class="card-title">🥇 Olympics</h3><button class="btn btn-secondary btn-small" onclick="openSportsModal('olympics')">Edit</button>
+        </div>
+        <div style="margin-top: 1rem; text-align: center;">
+         <div style="font-size: 3rem; margin: 1rem 0;">
+          🥇
+         </div>
+         <p style="font-weight: 600; margin-bottom: 0.5rem;">India at Olympics</p>
+         <p style="color: #999; font-size: 0.9rem;">Total Medals: 71+ | Paris 2024: Active</p><button class="btn btn-primary btn-small" style="width: 100%; margin-top: 1rem;">📸 Upload Image</button>
+        </div>
+       </div>
+      </div><!-- SPORTS MODAL -->
+      <div id="sportsModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Edit Sport Information</h3><button class="modal-close" onclick="closeSportsModal()">✕</button>
+        </div>
+        <form onsubmit="handleSportsSubmit(event)">
+         <div class="form-group"><label for="sportName">Sport Name</label> <input type="text" id="sportName" value="Cricket" required>
+         </div>
+         <div class="form-group"><label for="sportDescription">Description</label> <textarea id="sportDescription" required></textarea>
+         </div>
+         <div class="form-group"><label for="sportImage">Upload Image</label> <input type="file" id="sportImage" accept="image/*"> <small style="color: #999; display: block; margin-top: 0.5rem;">Supported: JPG, PNG, GIF (Max 5MB)</small>
+         </div>
+         <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeSportsModal()">Cancel</button> <button type="submit" class="btn btn-success">Save Changes</button>
+         </div>
+        </form>
+       </div>
+      </div>
+     </div><!-- TOURISM SECTION -->
+     <div id="tourism" class="content-section">
+      <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy); margin-bottom: 2rem;">Tourism Management</h2>
+      <div class="grid grid-2" id="tourismGrid"><!-- Populated by JavaScript -->
+      </div><!-- TOURISM MODAL -->
+      <div id="tourismModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Edit Monument</h3><button class="modal-close" onclick="closeTourismModal()">✕</button>
+        </div>
+        <form onsubmit="handleTourismSubmit(event)">
+         <div class="form-group"><label for="monumentName">Monument Name</label> <input type="text" id="monumentName" value="Taj Mahal" required>
+         </div>
+         <div class="form-group"><label for="monumentLocation">Location</label> <input type="text" id="monumentLocation" value="Agra, Uttar Pradesh" required>
+         </div>
+         <div class="form-group"><label for="monumentDescription">Description</label> <textarea id="monumentDescription" required>A white marble mausoleum built by Mughal Emperor Shah Jahan in memory of his wife Mumtaz Mahal. One of the Seven Wonders of the World...</textarea>
+         </div>
+         <div class="form-group"><label for="monumentImage">Upload Image</label> <input type="file" id="monumentImage" accept="image/*">
+         </div>
+         <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeTourismModal()">Cancel</button> <button type="submit" class="btn btn-success">Save Changes</button>
+         </div>
+        </form>
+       </div>
+      </div>
+     </div><!-- CULTURE & FESTIVALS -->
+     <div id="culture" class="content-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+       <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy);">Culture &amp; Festivals</h2><button class="btn btn-primary" onclick="openFestivalModal()">➕ Add Festival</button>
+      </div>
+      <div class="table-container">
+       <table class="table" id="festivalTable">
+        <thead>
+         <tr>
+          <th>Festival Name</th>
+          <th>Month</th>
+          <th>Religion/Community</th>
+          <th>Description</th>
+          <th>Actions</th>
+         </tr>
+        </thead>
+        <tbody id="festivalTableBody"><!-- Populated by JavaScript -->
+        </tbody>
+       </table>
+      </div><!-- FESTIVAL MODAL -->
+      <div id="festivalModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Add/Edit Festival</h3><button class="modal-close" onclick="closeFestivalModal()">✕</button>
+        </div>
+        <form onsubmit="handleFestivalSubmit(event)">
+         <div class="form-group"><label for="festivalName">Festival Name</label> <input type="text" id="festivalName" value="Diwali" placeholder="Enter festival name" required>
+         </div>
+         <div class="form-group"><label for="festivalMonth">Month</label> <input type="text" id="festivalMonth" value="October-November" placeholder="Month/Season" required>
+         </div>
+         <div class="form-group"><label for="festivalCommunity">Community/Religion</label> <input type="text" id="festivalCommunity" value="Hindu" placeholder="Community/Religion" required>
+         </div>
+         <div class="form-group"><label for="festivalDesc">Description</label> <textarea id="festivalDesc" placeholder="Festival description" required>Festival of Lights - Diwali celebrates the victory of light over darkness and good over evil. Homes are decorated with lights and candles, fireworks light up the sky...</textarea>
+         </div>
+         <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeFestivalModal()">Cancel</button> <button type="submit" class="btn btn-success">Save Festival</button>
+         </div>
+        </form>
+       </div>
+      </div>
+     </div><!-- MEDIA GALLERY -->
+     <div id="media" class="content-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+       <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy);">Media Gallery</h2><button class="btn btn-primary" onclick="handleMediaUpload()">📤 Upload Image</button>
+      </div>
+      <div class="grid grid-4" id="mediaGrid"><!-- Populated by JavaScript -->
+      </div>
+     </div><!-- USERS MANAGEMENT -->
+     <div id="users" class="content-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+       <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy);">Users Management</h2><button class="btn btn-primary" onclick="openUserModal()">➕ Add User</button>
+      </div><!-- USER MODAL -->
+      <div id="userModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Add/Edit User</h3><button class="modal-close" onclick="closeUserModal()">✕</button>
+        </div>
+        <form onsubmit="handleUserSubmit(event)">
+         <div class="form-row">
+          <div class="form-group"><label for="userName">Full Name</label> <input type="text" id="userName" value="Raj Kumar Singh" placeholder="Full name" required>
+          </div>
+          <div class="form-group"><label for="userEmail">Email</label> <input type="email" id="userEmail" value="raj@example.com" placeholder="Email address" required>
+          </div>
+         </div>
+         <div class="form-group"><label for="userRole">Role</label> <select id="userRole" required> <option value="Admin">Admin</option> <option value="Editor">Editor</option> <option value="Viewer">Viewer</option> </select>
+         </div>
+         <div class="form-group"><label for="userStatus">Status</label> <select id="userStatus" required> <option value="Active">Active</option> <option value="Inactive">Inactive</option> </select>
+         </div>
+         <div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeUserModal()">Cancel</button> <button type="submit" class="btn btn-success">Save User</button>
+         </div>
+        </form>
+       </div>
+      </div><!-- USERS TABLE -->
+      <div class="table-container">
+       <table class="table" id="usersTable">
+        <thead>
+         <tr>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Joined Date</th>
+          <th>Actions</th>
+         </tr>
+        </thead>
+        <tbody id="usersTableBody"><!-- Populated by JavaScript -->
+        </tbody>
+       </table>
+      </div>
+      <div class="pagination" id="usersPagination"></div>
+     </div><!-- MESSAGES -->
+     <div id="messages" class="content-section">
+      <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy); margin-bottom: 2rem;">Contact Form Messages</h2>
+      <div class="table-container">
+       <table class="table" id="messagesTable">
+        <thead>
+         <tr>
+          <th>Sender Name</th>
+          <th>Email</th>
+          <th>Message Preview</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+         </tr>
+        </thead>
+        <tbody id="messagesTableBody"><!-- Populated by JavaScript -->
+        </tbody>
+       </table>
+      </div><!-- MESSAGE DETAIL MODAL -->
+      <div id="messageModal" class="modal">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h3 class="modal-title">Message Details</h3><button class="modal-close" onclick="closeMessageModal()">✕</button>
+        </div>
+        <div>
+         <p><strong>From:</strong> <span id="messageFrom"></span></p>
+         <p><strong>Email:</strong> <span id="messageEmail"></span></p>
+         <p><strong>Phone:</strong> <span id="messagePhone"></span></p>
+         <p><strong>Date:</strong> <span id="messageDate"></span></p>
+         <hr style="margin: 1rem 0; border: none; border-top: 1px solid var(--color-border);">
+         <p><strong>Message:</strong></p>
+         <p style="background: var(--color-light-gray); padding: 1rem; border-radius: 8px; line-height: 1.6;" id="messageContent"></p>
+         <div class="modal-footer"><button class="btn btn-primary" onclick="markAsRead()">✓ Mark as Read</button> <button class="btn btn-danger" onclick="deleteMessage()">Delete</button>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- ANALYTICS -->
+     <div id="analytics" class="content-section">
+      <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy); margin-bottom: 2rem;">Analytics Dashboard</h2><!-- ANALYTICS CHARTS -->
+      <div class="grid grid-2">
+       <div class="chart-container">
+        <h3 class="chart-title">👥 Users Growth (Last 6 Months)</h3>
+        <div class="bar-chart">
+         <div class="bar" style="height: 40%; background: linear-gradient(135deg, var(--color-green) 0%, #0f6a35 100%);"><span class="bar-label">Jan</span>
+         </div>
+         <div class="bar" style="height: 55%; background: linear-gradient(135deg, var(--color-green) 0%, #0f6a35 100%);"><span class="bar-label">Feb</span>
+         </div>
+         <div class="bar" style="height: 65%; background: linear-gradient(135deg, var(--color-green) 0%, #0f6a35 100%);"><span class="bar-label">Mar</span>
+         </div>
+         <div class="bar" style="height: 75%; background: linear-gradient(135deg, var(--color-green) 0%, #0f6a35 100%);"><span class="bar-label">Apr</span>
+         </div>
+         <div class="bar" style="height: 85%; background: linear-gradient(135deg, var(--color-green) 0%, #0f6a35 100%);"><span class="bar-label">May</span>
+         </div>
+         <div class="bar" style="height: 100%; background: linear-gradient(135deg, var(--color-green) 0%, #0f6a35 100%);"><span class="bar-label">Jun</span>
+         </div>
+        </div>
+       </div>
+       <div class="chart-container">
+        <h3 class="chart-title">📱 Traffic Sources</h3>
+        <div style="padding: 2rem;">
+         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+          <div style="width: 20px; height: 20px; background: linear-gradient(135deg, var(--color-saffron), #ff8c1a); border-radius: 50%; margin-right: 0.8rem;"></div><span>Direct Traffic: 35%</span>
+         </div>
+         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+          <div style="width: 20px; height: 20px; background: linear-gradient(135deg, var(--color-info), #2980b9); border-radius: 50%; margin-right: 0.8rem;"></div><span>Search Engines: 40%</span>
+         </div>
+         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+          <div style="width: 20px; height: 20px; background: linear-gradient(135deg, var(--color-success), #1e8449); border-radius: 50%; margin-right: 0.8rem;"></div><span>Social Media: 15%</span>
+         </div>
+         <div style="display: flex; align-items: center;">
+          <div style="width: 20px; height: 20px; background: linear-gradient(135deg, var(--color-danger), #c0392b); border-radius: 50%; margin-right: 0.8rem;"></div><span>Referrals: 10%</span>
+         </div>
+        </div>
+       </div>
+      </div><!-- ANALYTICS DATA TABLE -->
+      <div class="chart-container">
+       <h3 class="chart-title">📊 Monthly Performance Data</h3>
+       <div class="table-container">
+        <table class="table">
+         <thead>
+          <tr>
+           <th>Month</th>
+           <th>Visitors</th>
+           <th>Page Views</th>
+           <th>Users</th>
+           <th>Bounce Rate</th>
+           <th>Avg. Session Duration</th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>January</td>
+           <td>12,450</td>
+           <td>45,320</td>
+           <td>8,230</td>
+           <td>32%</td>
+           <td>3:45</td>
+          </tr>
+          <tr>
+           <td>February</td>
+           <td>15,320</td>
+           <td>58,140</td>
+           <td>10,450</td>
+           <td>28%</td>
+           <td>4:12</td>
+          </tr>
+          <tr>
+           <td>March</td>
+           <td>18,900</td>
+           <td>72,300</td>
+           <td>12,340</td>
+           <td>25%</td>
+           <td>4:35</td>
+          </tr>
+          <tr>
+           <td>April</td>
+           <td>22,450</td>
+           <td>85,600</td>
+           <td>14,200</td>
+           <td>22%</td>
+           <td>4:58</td>
+          </tr>
+          <tr>
+           <td>May</td>
+           <td>25,300</td>
+           <td>94,200</td>
+           <td>15,800</td>
+           <td>20%</td>
+           <td>5:15</td>
+          </tr>
+          <tr>
+           <td>June</td>
+           <td>28,100</td>
+           <td>102,300</td>
+           <td>17,200</td>
+           <td>18%</td>
+           <td>5:42</td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div><!-- SETTINGS -->
+     <div id="settings" class="content-section">
+      <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--color-navy); margin-bottom: 2rem;">System Settings</h2>
+      <div class="card" style="max-width: 600px;">
+       <form onsubmit="handleSettingsSave(event)">
+        <div class="form-group"><label for="siteName">Website Name</label> <input type="text" id="siteName" value="Digital Bharat" required>
+        </div>
+        <div class="form-group"><label for="siteEmail">Contact Email</label> <input type="email" id="siteEmail" value="rohittsep22@gmail.com" required>
+        </div>
+        <div class="form-group"><label for="themePref">Theme Preference</label> <select id="themePref" required> <option value="light">Light Mode</option> <option value="dark">Dark Mode</option> <option value="auto">Auto (System)</option> </select>
+        </div>
+        <div class="form-group"><label for="maintenance">Maintenance Mode</label> <select id="maintenance" required> <option value="off">OFF</option> <option value="on">ON</option> </select>
+        </div>
+        <div class="form-group"><label for="itemsPerPage">Items Per Page</label> <input type="number" id="itemsPerPage" value="10" min="5" max="50" required>
+        </div>
+        <div class="form-group"><label for="backupFrequency">Backup Frequency</label> <select id="backupFrequency" required> <option value="daily">Daily</option> <option value="weekly">Weekly</option> <option value="monthly">Monthly</option> </select>
+        </div>
+        <div style="display: flex; gap: 1rem;"><button type="submit" class="btn btn-success">✓ Save Settings</button> <button type="reset" class="btn btn-outline">↻ Reset</button>
+        </div>
+       </form>
+      </div>
+      <div class="card" style="max-width: 600px; margin-top: 2rem; background: rgba(231, 76, 60, 0.1); border: 2px solid var(--color-danger);">
+       <h3 style="color: var(--color-danger); margin-bottom: 1rem;">⚠️ Danger Zone</h3>
+       <p style="margin-bottom: 1rem; color: #666;">These actions cannot be undone. Proceed with caution.</p><button class="btn btn-danger" onclick="handleSystemReset()">🗑️ Clear All Cache</button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+        /* ============================================
+           DATA STORE (FRONTEND ONLY)
+           In production, replace with API calls
+           Modules: api.js, database.js, auth.js, analytics.js
+           ============================================ */
+
+        // Sample data - all pre-filled
+        let appData = {
+            states: [
+                { id: 1, name: 'Andhra Pradesh', capital: 'Amaravati', population: '49,506,799', status: 'Active' },
+                { id: 2, name: 'Arunachal Pradesh', capital: 'Itanagar', population: '1,382,611', status: 'Active' },
+                { id: 3, name: 'Assam', capital: 'Dispur', population: '31,205,144', status: 'Active' },
+                { id: 4, name: 'Bihar', capital: 'Patna', population: '103,804,637', status: 'Active' },
+                { id: 5, name: 'Chhattisgarh', capital: 'Raipur', population: '25,545,818', status: 'Active' },
+                { id: 6, name: 'Goa', capital: 'Panaji', population: '1,407,273', status: 'Active' },
+                { id: 7, name: 'Gujarat', capital: 'Gandhinagar', population: '60,439,692', status: 'Active' },
+                { id: 8, name: 'Haryana', capital: 'Chandigarh', population: '25,353,081', status: 'Active' },
+                { id: 9, name: 'Himachal Pradesh', capital: 'Shimla', population: '6,856,509', status: 'Active' },
+                { id: 10, name: 'Jharkhand', capital: 'Ranchi', population: '32,966,134', status: 'Active' },
+                { id: 11, name: 'Karnataka', capital: 'Bengaluru', population: '61,130,704', status: 'Active' },
+                { id: 12, name: 'Kerala', capital: 'Thiruvananthapuram', population: '33,387,677', status: 'Active' },
+                { id: 13, name: 'Madhya Pradesh', capital: 'Bhopal', population: '72,597,565', status: 'Active' },
+                { id: 14, name: 'Maharashtra', capital: 'Mumbai', population: '112,374,333', status: 'Active' },
+                { id: 15, name: 'Manipur', capital: 'Imphal', population: '2,721,756', status: 'Active' },
+                { id: 16, name: 'Meghalaya', capital: 'Shillong', population: '2,966,889', status: 'Active' },
+                { id: 17, name: 'Mizoram', capital: 'Aizawl', population: '1,097,206', status: 'Active' },
+                { id: 18, name: 'Nagaland', capital: 'Kohima', population: '1,978,502', status: 'Active' },
+                { id: 19, name: 'Odisha', capital: 'Bhubaneswar', population: '41,974,218', status: 'Active' },
+                { id: 20, name: 'Punjab', capital: 'Chandigarh', population: '27,743,338', status: 'Active' },
+                { id: 21, name: 'Rajasthan', capital: 'Jaipur', population: '68,548,437', status: 'Active' },
+                { id: 22, name: 'Sikkim', capital: 'Gangtok', population: '610,577', status: 'Active' },
+                { id: 23, name: 'Tamil Nadu', capital: 'Chennai', population: '72,147,030', status: 'Active' },
+                { id: 24, name: 'Telangana', capital: 'Hyderabad', population: '35,193,978', status: 'Active' },
+                { id: 25, name: 'Tripura', capital: 'Agartala', population: '3,673,917', status: 'Active' },
+                { id: 26, name: 'Uttar Pradesh', capital: 'Lucknow', population: '199,812,341', status: 'Active' },
+                { id: 27, name: 'Uttarakhand', capital: 'Dehradun', population: '10,086,292', status: 'Active' },
+                { id: 28, name: 'West Bengal', capital: 'Kolkata', population: '91,276,115', status: 'Active' }
+            ],
+            articles: [
+                { id: 1, title: 'Ancient India', description: 'From Indus Valley to Gupta Empire...', date: '2024-01-15', status: 'Published' },
+                { id: 2, title: 'Medieval India', description: 'The great kingdoms and empires...', date: '2024-01-20', status: 'Published' },
+                { id: 3, title: 'Freedom Movement', description: 'Independence struggle of India...', date: '2024-01-25', status: 'Published' },
+                { id: 4, title: 'Modern India', description: 'Post-independence developments...', date: '2024-02-01', status: 'Published' }
+            ],
+            users: [
+                { id: 1, name: 'Raj Kumar Singh', email: 'raj@example.com', role: 'Admin', status: 'Active', joined: '2023-05-10' },
+                { id: 2, name: 'Priya Sharma', email: 'priya@example.com', role: 'Editor', status: 'Active', joined: '2023-06-15' },
+                { id: 3, name: 'Arun Patel', email: 'arun@example.com', role: 'Viewer', status: 'Active', joined: '2023-07-20' },
+                { id: 4, name: 'Sneha Gupta', email: 'sneha@example.com', role: 'Editor', status: 'Active', joined: '2023-08-10' },
+                { id: 5, name: 'Vikram Singh', email: 'vikram@example.com', role: 'Viewer', status: 'Inactive', joined: '2023-09-05' },
+                { id: 6, name: 'Neha Mishra', email: 'neha@example.com', role: 'Editor', status: 'Active', joined: '2023-10-12' },
+                { id: 7, name: 'Arjun Verma', email: 'arjun@example.com', role: 'Admin', status: 'Active', joined: '2023-11-08' },
+                { id: 8, name: 'Anita Das', email: 'anita@example.com', role: 'Viewer', status: 'Active', joined: '2023-12-01' },
+                { id: 9, name: 'Rohan Kumar', email: 'rohan@example.com', role: 'Editor', status: 'Active', joined: '2024-01-15' },
+                { id: 10, name: 'Pooja Singh', email: 'pooja@example.com', role: 'Viewer', status: 'Active', joined: '2024-01-20' },
+                { id: 11, name: 'Manish Patel', email: 'manish@example.com', role: 'Editor', status: 'Active', joined: '2024-02-01' },
+                { id: 12, name: 'Ritika Sharma', email: 'ritika@example.com', role: 'Viewer', status: 'Active', joined: '2024-02-05' },
+                { id: 13, name: 'Harsh Verma', email: 'harsh@example.com', role: 'Editor', status: 'Active', joined: '2024-02-10' },
+                { id: 14, name: 'Divya Nair', email: 'divya@example.com', role: 'Admin', status: 'Active', joined: '2024-02-15' },
+                { id: 15, name: 'Suresh Kumar', email: 'suresh@example.com', role: 'Viewer', status: 'Active', joined: '2024-02-20' },
+                { id: 16, name: 'Seema Reddy', email: 'seema@example.com', role: 'Editor', status: 'Active', joined: '2024-02-25' },
+                { id: 17, name: 'Nikhil Desai', email: 'nikhil@example.com', role: 'Viewer', status: 'Inactive', joined: '2024-03-01' },
+                { id: 18, name: 'Anjali Joshi', email: 'anjali@example.com', role: 'Editor', status: 'Active', joined: '2024-03-05' },
+                { id: 19, name: 'Karan Chopra', email: 'karan@example.com', role: 'Viewer', status: 'Active', joined: '2024-03-10' },
+                { id: 20, name: 'Maya Bhat', email: 'maya@example.com', role: 'Editor', status: 'Active', joined: '2024-03-15' }
+            ],
+            messages: [
+                { id: 1, name: 'Rohit Kumar', email: 'rohit@example.com', phone: '+91-9876543210', message: 'Great initiative! Would love to contribute to Digital Bharat project.', date: '2024-03-15 10:30', read: false },
+                { id: 2, name: 'Priya Singh', email: 'priya@example.com', phone: '+91-8765432109', message: 'Your content on Indian history is amazing and very informative.', date: '2024-03-14 14:45', read: true },
+                { id: 3, name: 'Amit Patel', email: 'amit@example.com', phone: '+91-9123456789', message: 'When will you add information about all districts?', date: '2024-03-13 09:15', read: false },
+                { id: 4, name: 'Sneha Gupta', email: 'sneha@example.com', phone: '+91-8976543210', message: 'Love the sports section! Please update with latest cricket stats.', date: '2024-03-12 16:20', read: true },
+                { id: 5, name: 'Arjun Singh', email: 'arjun@example.com', phone: '+91-9845123456', message: 'Is there an API available for integrating this data in my website?', date: '2024-03-11 11:30', read: false },
+                { id: 6, name: 'Kavya Sharma', email: 'kavya@example.com', phone: '+91-8734567890', message: 'Excellent platform for learning about India. Congratulations!', date: '2024-03-10 13:45', read: false },
+                { id: 7, name: 'Vikas Mishra', email: 'vikas@example.com', phone: '+91-9765432101', message: 'Can you add more content about ancient Indian science and medicine?', date: '2024-03-09 10:00', read: true },
+                { id: 8, name: 'Isha Kumar', email: 'isha@example.com', phone: '+91-8654321098', message: 'Tourism section is very helpful. Visited Taj Mahal last week!', date: '2024-03-08 15:30', read: true },
+                { id: 9, name: 'Rahul Verma', email: 'rahul@example.com', phone: '+91-9876540123', message: 'I would like to collaborate on cultural content creation.', date: '2024-03-07 12:15', read: false },
+                { id: 10, name: 'Meera Singh', email: 'meera@example.com', phone: '+91-8765439876', message: 'Your festival descriptions are so detailed and well-researched. Thank you!', date: '2024-03-06 09:45', read: true }
+            ],
+            festivals: [
+                { id: 1, name: 'Diwali', month: 'October-November', community: 'Hindu', description: 'Festival of Lights - Celebrates victory of light over darkness' },
+                { id: 2, name: 'Holi', month: 'March', community: 'Hindu', description: 'Festival of Colors - Celebrates spring and renewal' },
+                { id: 3, name: 'Eid ul-Fitr', month: 'April', community: 'Muslim', description: 'Festival marking end of Ramadan month of fasting' },
+                { id: 4, name: 'Navratri', month: 'September-October', community: 'Hindu', description: 'Nine nights celebrating triumph of good over evil' },
+                { id: 5, name: 'Pongal', month: 'January', community: 'Hindu/Tamil', description: 'Harvest festival celebrated in South India with joy and gratitude' }
+            ],
+            monuments: [
+                { id: 1, name: 'Taj Mahal', location: 'Agra, Uttar Pradesh', description: 'A white marble mausoleum built by Mughal Emperor Shah Jahan. One of the Seven Wonders of the World.', image: '🏰' },
+                { id: 2, name: 'Red Fort', location: 'Delhi', description: 'Historic fort complex in Old Delhi, serving as residence of Mughal emperors. UNESCO World Heritage Site.', image: '🏛️' },
+                { id: 3, name: 'Qutub Minar', location: 'New Delhi', description: 'Tallest brick minaret in the world standing at 73 meters. Built in 12th century during Islamic era.', image: '🗼' },
+                { id: 4, name: 'Gateway of India', location: 'Mumbai, Maharashtra', description: 'Iconic monument overlooking the Arabian Sea. Built during British colonial rule. A symbol of Mumbai.' , image: '🌉' }
+            ],
+            mediaGallery: [
+                { id: 1, name: 'Taj Mahal Morning', url: '🏰' },
+                { id: 2, name: 'Red Fort Sunset', url: '🏛️' },
+                { id: 3, name: 'Qutub Minar Night', url: '🗼' },
+                { id: 4, name: 'Gateway of India', url: '🌉' },
+                { id: 5, name: 'Indian Parliament', url: '🏢' },
+                { id: 6, name: 'Statue of Unity', url: '🗿' },
+                { id: 7, name: 'Hawa Mahal', url: '🏰' },
+                { id: 8, name: 'Varanasi Ghats', url: '⛩️' },
+                { id: 9, name: 'Kerala Backwaters', url: '🚣' },
+                { id: 10, name: 'Himalayan Peaks', url: '⛰️' },
+                { id: 11, name: 'Rajasthan Desert', url: '🏜️' },
+                { id: 12, name: 'Indian Ocean', url: '🌊' }
+            ]
+        };
+
+        // ============================================
+        // LOGIN FUNCTIONS
+        // ============================================
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === 'admin123') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'flex';
+                initializeDashboard();
+            } else {
+                alert('Invalid credentials. Use admin/admin123');
+            }
+        }
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('loginForm').reset();
+            }
+        }
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        function initializeDashboard() {
+            populateStatesTable();
+            populateHistoryCards();
+            populateTourismGrid();
+            populateUsersTable();
+            populateMessagesTable();
+            populateFestivalTable();
+            populateMediaGallery();
+        }
+
+        // ============================================
+        // TAB SWITCHING
+        // ============================================
+        function switchTab(tabName, e) {
+            e.preventDefault();
+
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(tabName).classList.add('active');
+
+            // Update navbar title
+            const menuItems = {
+                'dashboard': '📊 Dashboard Overview',
+                'states': '🗺️ Manage States',
+                'history': '📜 History Content',
+                'government': '🏛️ Government',
+                'defence': '🛡️ Defence',
+                'sports': '🏏 Sports',
+                'tourism': '🏰 Tourism',
+                'culture': '🎉 Culture & Festivals',
+                'media': '🖼️ Media Gallery',
+                'users': '👥 Users Management',
+                'messages': '📧 Messages',
+                'analytics': '📈 Analytics',
+                'settings': '⚙️ Settings'
+            };
+
+            document.querySelector('.navbar-title').textContent = menuItems[tabName] || 'Digital Bharat Admin';
+
+            // Update active menu item
+            document.querySelectorAll('.sidebar-menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            e.target.closest('.sidebar-menu-item')?.classList.add('active');
+
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                document.querySelector('.sidebar').classList.add('collapsed');
+            }
+        }
+
+        // ============================================
+        // STATES MANAGEMENT
+        // ============================================
+        function populateStatesTable() {
+            const tbody = document.getElementById('statesTableBody');
+            const itemsPerPage = 10;
+            const page = 1;
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+
+            tbody.innerHTML = appData.states.slice(start, end).map(state => `
+                <tr>
+                    <td><strong>${state.name}</strong></td>
+                    <td>${state.capital}</td>
+                    <td>${state.population}</td>
+                    <td><span class="status-badge active">${state.status}</span></td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn btn-secondary btn-small" onclick="editState(${state.id})">✏️ Edit</button>
+                            <button class="btn btn-danger btn-small" onclick="deleteState(${state.id})">🗑️ Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Generate pagination
+            generatePagination('statesPagination', appData.states.length, itemsPerPage);
+        }
+
+        function openStateModal() {
+            document.getElementById('stateModal').classList.add('active');
+        }
+
+        function closeStateModal() {
+            document.getElementById('stateModal').classList.remove('active');
+        }
+
+        function handleStateSubmit(e) {
+            e.preventDefault();
+            alert('State saved successfully!');
+            closeStateModal();
+            populateStatesTable();
+        }
+
+        function editState(id) {
+            const state = appData.states.find(s => s.id === id);
+            if (state) {
+                document.getElementById('stateName').value = state.name;
+                document.getElementById('stateCapital').value = state.capital;
+                document.getElementById('statePopulation').value = state.population;
+                document.getElementById('stateStatus').value = state.status;
+                openStateModal();
+            }
+        }
+
+        function deleteState(id) {
+            if (confirm('Are you sure you want to delete this state?')) {
+                appData.states = appData.states.filter(s => s.id !== id);
+                populateStatesTable();
+                alert('State deleted successfully!');
+            }
+        }
+
+        // ============================================
+        // HISTORY MANAGEMENT
+        // ============================================
+        function populateHistoryCards() {
+            const grid = document.getElementById('historyGrid');
+            grid.innerHTML = appData.articles.map(article => `
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">${article.title}</h3>
+                        <button class="btn btn-secondary btn-small" onclick="editArticle(${article.id})">✏️</button>
+                    </div>
+                    <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">Published: ${article.date}</p>
+                    <p style="line-height: 1.6; margin-bottom: 1rem;">${article.description}</p>
+                    <span class="status-badge active">${article.status}</span>
+                    <button class="btn btn-danger btn-small" style="float: right;" onclick="deleteArticle(${article.id})">🗑️</button>
+                </div>
+            `).join('');
+        }
+
+        function openHistoryModal() {
+            document.getElementById('historyModal').classList.add('active');
+        }
+
+        function closeHistoryModal() {
+            document.getElementById('historyModal').classList.remove('active');
+        }
+
+        function handleHistorySubmit(e) {
+            e.preventDefault();
+            alert('Article saved successfully!');
+            closeHistoryModal();
+            populateHistoryCards();
+        }
+
+        function editArticle(id) {
+            const article = appData.articles.find(a => a.id === id);
+            if (article) {
+                document.getElementById('articleTitle').value = article.title;
+                document.getElementById('articleDesc').value = article.description;
+                document.getElementById('articleDate').value = article.date;
+                document.getElementById('articleStatus').value = article.status;
+                openHistoryModal();
+            }
+        }
+
+        function deleteArticle(id) {
+            if (confirm('Are you sure you want to delete this article?')) {
+                appData.articles = appData.articles.filter(a => a.id !== id);
+                populateHistoryCards();
+                alert('Article deleted successfully!');
+            }
+        }
+
+        // ============================================
+        // TOURISM MANAGEMENT
+        // ============================================
+        function populateTourismGrid() {
+            const grid = document.getElementById('tourismGrid');
+            grid.innerHTML = appData.monuments.map(monument => `
+                <div class="card">
+                    <div style="font-size: 3rem; text-align: center; margin-bottom: 1rem;">${monument.image}</div>
+                    <h3 class="card-title">${monument.name}</h3>
+                    <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">📍 ${monument.location}</p>
+                    <p style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem;">${monument.description}</p>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-secondary btn-small" onclick="editMonument(${monument.id})" style="flex: 1;">✏️ Edit</button>
+                        <button class="btn btn-danger btn-small" onclick="deleteMonument(${monument.id})" style="flex: 1;">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openTourismModal() {
+            document.getElementById('tourismModal').classList.add('active');
+        }
+
+        function closeTourismModal() {
+            document.getElementById('tourismModal').classList.remove('active');
+        }
+
+        function handleTourismSubmit(e) {
+            e.preventDefault();
+            alert('Monument updated successfully!');
+            closeTourismModal();
+            populateTourismGrid();
+        }
+
+        function editMonument(id) {
+            const monument = appData.monuments.find(m => m.id === id);
+            if (monument) {
+                document.getElementById('monumentName').value = monument.name;
+                document.getElementById('monumentLocation').value = monument.location;
+                document.getElementById('monumentDescription').value = monument.description;
+                openTourismModal();
+            }
+        }
+
+        function deleteMonument(id) {
+            if (confirm('Are you sure you want to delete this monument?')) {
+                appData.monuments = appData.monuments.filter(m => m.id !== id);
+                populateTourismGrid();
+                alert('Monument deleted successfully!');
+            }
+        }
+
+        // ============================================
+        // USERS MANAGEMENT
+        // ============================================
+        function populateUsersTable() {
+            const tbody = document.getElementById('usersTableBody');
+            const itemsPerPage = 10;
+            const page = 1;
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+
+            tbody.innerHTML = appData.users.slice(start, end).map(user => `
+                <tr>
+                    <td><strong>${user.name}</strong></td>
+                    <td>${user.email}</td>
+                    <td>${user.role}</td>
+                    <td><span class="status-badge ${user.status === 'Active' ? 'active' : 'inactive'}">${user.status}</span></td>
+                    <td>${user.joined}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn btn-secondary btn-small" onclick="editUser(${user.id})">✏️ Edit</button>
+                            <button class="btn btn-danger btn-small" onclick="deleteUser(${user.id})">🗑️ Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            generatePagination('usersPagination', appData.users.length, itemsPerPage);
+        }
+
+        function openUserModal() {
+            document.getElementById('userModal').classList.add('active');
+        }
+
+        function closeUserModal() {
+            document.getElementById('userModal').classList.remove('active');
+        }
+
+        function handleUserSubmit(e) {
+            e.preventDefault();
+            alert('User saved successfully!');
+            closeUserModal();
+            populateUsersTable();
+        }
+
+        function editUser(id) {
+            const user = appData.users.find(u => u.id === id);
+            if (user) {
+                document.getElementById('userName').value = user.name;
+                document.getElementById('userEmail').value = user.email;
+                document.getElementById('userRole').value = user.role;
+                document.getElementById('userStatus').value = user.status;
+                openUserModal();
+            }
+        }
+
+        function deleteUser(id) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                appData.users = appData.users.filter(u => u.id !== id);
+                populateUsersTable();
+                alert('User deleted successfully!');
+            }
+        }
+
+        // ============================================
+        // MESSAGES MANAGEMENT
+        // ============================================
+        function populateMessagesTable() {
+            const tbody = document.getElementById('messagesTableBody');
+            tbody.innerHTML = appData.messages.map(msg => `
+                <tr>
+                    <td><strong>${msg.name}</strong></td>
+                    <td>${msg.email}</td>
+                    <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${msg.message}</td>
+                    <td>${msg.date}</td>
+                    <td><span class="status-badge ${msg.read ? 'active' : 'pending'}">${msg.read ? '✓ Read' : '⏱ Unread'}</span></td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn btn-info btn-small" onclick="viewMessage(${msg.id})">👁️ View</button>
+                            <button class="btn btn-danger btn-small" onclick="deleteMessage(${msg.id})">🗑️ Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function viewMessage(id) {
+            const msg = appData.messages.find(m => m.id === id);
+            if (msg) {
+                document.getElementById('messageFrom').textContent = msg.name;
+                document.getElementById('messageEmail').textContent = msg.email;
+                document.getElementById('messagePhone').textContent = msg.phone;
+                document.getElementById('messageDate').textContent = msg.date;
+                document.getElementById('messageContent').textContent = msg.message;
+                document.getElementById('messageModal').classList.add('active');
+            }
+        }
+
+        function closeMessageModal() {
+            document.getElementById('messageModal').classList.remove('active');
+        }
+
+        function markAsRead() {
+            alert('Message marked as read!');
+            closeMessageModal();
+            populateMessagesTable();
+        }
+
+        function deleteMessage(id) {
+            if (confirm('Are you sure you want to delete this message?')) {
+                appData.messages = appData.messages.filter(m => m.id !== id);
+                populateMessagesTable();
+                alert('Message deleted successfully!');
+            }
+        }
+
+        // ============================================
+        // FESTIVALS MANAGEMENT
+        // ============================================
+        function populateFestivalTable() {
+            const tbody = document.getElementById('festivalTableBody');
+            tbody.innerHTML = appData.festivals.map(festival => `
+                <tr>
+                    <td><strong>${festival.name}</strong></td>
+                    <td>${festival.month}</td>
+                    <td>${festival.community}</td>
+                    <td>${festival.description}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn btn-secondary btn-small" onclick="editFestival(${festival.id})">✏️ Edit</button>
+                            <button class="btn btn-danger btn-small" onclick="deleteFestival(${festival.id})">🗑️ Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openFestivalModal() {
+            document.getElementById('festivalModal').classList.add('active');
+        }
+
+        function closeFestivalModal() {
+            document.getElementById('festivalModal').classList.remove('active');
+        }
+
+        function handleFestivalSubmit(e) {
+            e.preventDefault();
+            alert('Festival saved successfully!');
+            closeFestivalModal();
+            populateFestivalTable();
+        }
+
+        function editFestival(id) {
+            const festival = appData.festivals.find(f => f.id === id);
+            if (festival) {
+                document.getElementById('festivalName').value = festival.name;
+                document.getElementById('festivalMonth').value = festival.month;
+                document.getElementById('festivalCommunity').value = festival.community;
+                document.getElementById('festivalDesc').value = festival.description;
+                openFestivalModal();
+            }
+        }
+
+        function deleteFestival(id) {
+            if (confirm('Are you sure you want to delete this festival?')) {
+                appData.festivals = appData.festivals.filter(f => f.id !== id);
+                populateFestivalTable();
+                alert('Festival deleted successfully!');
+            }
+        }
+
+        // ============================================
+        // MEDIA GALLERY
+        // ============================================
+        function populateMediaGallery() {
+            const grid = document.getElementById('mediaGrid');
+            grid.innerHTML = appData.mediaGallery.map(media => `
+                <div class="card" style="text-align: center; cursor: pointer; transition: var(--transition-smooth);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">${media.url}</div>
+                    <p style="font-size: 0.85rem; margin-bottom: 1rem; font-weight: 600;">${media.name}</p>
+                    <button class="btn btn-danger btn-small" onclick="deleteMedia(${media.id})" style="width: 100%;">🗑️ Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function handleMediaUpload() {
+            alert('Media upload feature - Simulation mode. File upload UI ready for backend integration.');
+        }
+
+        function deleteMedia(id) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                appData.mediaGallery = appData.mediaGallery.filter(m => m.id !== id);
+                populateMediaGallery();
+                alert('Image deleted successfully!');
+            }
+        }
+
+        // ============================================
+        // GOVERNMENT & DEFENCE MODALS
+        // ============================================
+        function openGovModal(type) {
+            document.getElementById('governmentModal').classList.add('active');
+        }
+
+        function closeGovModal() {
+            document.getElementById('governmentModal').classList.remove('active');
+        }
+
+        function handleGovSubmit(e) {
+            e.preventDefault();
+            alert('Government information updated successfully!');
+            closeGovModal();
+        }
+
+        function openDefenceModal(type) {
+            document.getElementById('defenceModal').classList.add('active');
+        }
+
+        function closeDefenceModal() {
+            document.getElementById('defenceModal').classList.remove('active');
+        }
+
+        function handleDefenceSubmit(e) {
+            e.preventDefault();
+            alert('Defence information updated successfully!');
+            closeDefenceModal();
+        }
+
+        function openSportsModal(type) {
+            document.getElementById('sportsModal').classList.add('active');
+        }
+
+        function closeSportsModal() {
+            document.getElementById('sportsModal').classList.remove('active');
+        }
+
+        function handleSportsSubmit(e) {
+            e.preventDefault();
+            alert('Sports information updated successfully!');
+            closeSportsModal();
+        }
+
+        // ============================================
+        // SETTINGS
+        // ============================================
+        function handleSettingsSave(e) {
+            e.preventDefault();
+            alert('Settings saved successfully!');
+        }
+
+        function handleSystemReset() {
+            if (confirm('This will clear all cache. Are you sure?')) {
+                alert('System cache cleared successfully!');
+            }
+        }
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+        }
+
+        function toggleDarkMode() {
+            document.querySelector('.admin-container').classList.toggle('dark-mode');
+            document.querySelector('.navbar').classList.toggle('dark-mode');
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.background = document.querySelector('.admin-container').classList.contains('dark-mode') ? '#252d48' : 'white';
+            });
+        }
+
+        function toggleNotifications() {
+            document.getElementById('notificationDropdown').classList.toggle('active');
+        }
+
+        function toggleProfileMenu() {
+            document.getElementById('profileDropdown').classList.toggle('active');
+        }
+
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            console.log('Searching for:', searchTerm);
+            // Search functionality can be expanded
+        }
+
+        function exportData() {
+            alert('Exporting dashboard data to CSV...\n\nThe exported file contains:\n- States Information\n- User Statistics\n- Message Records\n- Analytics Data\n\nFile: digital_bharat_report.csv');
+        }
+
+        function generatePagination(elementId, totalItems, itemsPerPage) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const container = document.getElementById(elementId);
+            container.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = i === 1 ? 'active' : '';
+                btn.onclick = () => {
+                    document.querySelectorAll(`#${elementId} button`).forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                };
+                container.appendChild(btn);
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-content').forEach(el => {
+                    el.classList.remove('active');
+                });
+            }
+        });
+
+        // Close modals when clicking backdrop
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Digital Bharat Admin Panel Initialized');
+            console.log('📊 Total States & UTs: 36');
+            console.log('📰 Total Articles: ' + appData.articles.length);
+            console.log('👥 Total Users: ' + appData.users.length);
+            console.log('📧 Total Messages: ' + appData.messages.length);
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d2f9be5604c339c',t:'MTc3MTk0Mjg4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,2881 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <!-- ========== META TAGS & SEO ========== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Digital Bharat - Complete India Information Portal. Learn about Indian history, culture, government, states, sports, space, tourism, and more.">
+  <meta name="keywords" content="India, Digital Bharat, Indian History, Culture, Government, States, Tourism, Space, ISRO">
+  <meta name="author" content="Digital Bharat Team">
+  <meta name="theme-color" content="#FF9933"><!-- Open Graph Tags -->
+  <meta property="og:title" content="Digital Bharat - India Information Portal">
+  <meta property="og:description" content="Explore comprehensive information about India - History, Culture, Government, States, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=Digital+Bharat"><!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Digital Bharat - India Information Portal">
+  <meta name="twitter:description" content="Your complete source for Indian information and knowledge">
+  <title>Digital Bharat - India Information Portal</title><!-- ========== GOOGLE FONTS ========== -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"><!-- ========== CUSTOM STYLES ========== -->
+  <style>
+        /* ========== ROOT VARIABLES & RESET ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        :root {
+            /* Brand Colors */
+            --primary-saffron: #FF9933;
+            --primary-white: #FFFFFF;
+            --primary-green: #138808;
+            --accent-navy: #1a237e;
+            --accent-light-navy: #3949ab;
+            
+            /* Neutral Colors */
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --bg-light: #f5f5f5;
+            --bg-lighter: #fafafa;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #FF9933 0%, #138808 100%);
+            --gradient-secondary: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease-in-out;
+            --transition-normal: 0.3s ease-in-out;
+            --transition-slow: 0.5s ease-in-out;
+        }
+
+        /* ========== BODY & GLOBAL STYLES ========== */
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--primary-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+
+        body.dark-mode .navbar {
+            background-color: rgba(26, 26, 26, 0.95);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode .card, body.dark-mode .section-card {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+        }
+
+        /* ========== PRELOADER ========== */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #FF9933 0%, #138808 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeOut 0.8s ease-in-out 2.2s forwards;
+        }
+
+        .preloader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .preloader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .preloader-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            box-shadow: 0 2px 20px var(--shadow-color);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-brand-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-search {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 var(--spacing-lg);
+            position: relative;
+        }
+
+        .nav-search input {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+        }
+
+        .nav-search input:focus {
+            outline: none;
+            border-color: var(--primary-saffron);
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1001;
+            display: none;
+            margin-top: var(--spacing-xs);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .search-result-item:hover {
+            background-color: var(--bg-light);
+            padding-left: var(--spacing-lg);
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: var(--primary-saffron);
+            margin-bottom: 4px;
+        }
+
+        .search-result-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            position: relative;
+            padding: var(--spacing-xs) 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-fast);
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: transform var(--transition-fast);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: all var(--transition-fast);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            margin-top: 70px;
+            min-height: 100vh;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="1200" height="600" fill="rgba(255,255,255,0)" /><rect width="1200" height="600" fill="url(%23grid)" /></svg>');
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: slideUp 0.8s ease-out;
+            max-width: 800px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .national-flag {
+            display: flex;
+            height: 8px;
+            margin-bottom: var(--spacing-lg);
+            border-radius: 4px;
+            overflow: hidden;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .flag-saffron, .flag-white, .flag-green {
+            flex: 1;
+        }
+
+        .flag-saffron {
+            background-color: #FF9933;
+            animation: expandSaffron 1s ease-out;
+        }
+
+        .flag-white {
+            background-color: white;
+            animation: expandWhite 1.2s ease-out;
+        }
+
+        .flag-green {
+            background-color: #138808;
+            animation: expandGreen 1.4s ease-out;
+        }
+
+        @keyframes expandSaffron {
+            from { transform: scaleX(0); transform-origin: left; }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes expandWhite {
+            from { transform: scaleX(0); transform-origin: center; }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes expandGreen {
+            from { transform: scaleX(0); transform-origin: right; }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.2;
+            animation: fadeInScale 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            font-weight: 300;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.95;
+            animation: fadeInScale 0.8s ease-out 0.4s backwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInScale 0.8s ease-out 0.6s backwards;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: var(--spacing-md) var(--spacing-xl);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-saffron);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .quick-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-2xl);
+            animation: fadeInScale 0.8s ease-out 0.8s backwards;
+        }
+
+        .quick-nav-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            text-decoration: none;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .quick-nav-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .quick-nav-icon {
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .quick-nav-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* ========== INDIA FACTS COUNTER ========== */
+        .facts-section {
+            background: var(--bg-light);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .facts-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .fact-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 5px 20px var(--shadow-color);
+            transition: all var(--transition-normal);
+        }
+
+        .fact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow-color);
+        }
+
+        .fact-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .fact-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* ========== SECTIONS GENERAL ========== */
+        section {
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+            position: relative;
+            padding-bottom: var(--spacing-lg);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .card, .section-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .card:hover, .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            overflow: hidden;
+        }
+
+        .card-content {
+            padding: var(--spacing-lg);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-saffron);
+        }
+
+        .card-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .card-tags {
+            display: flex;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255, 153, 51, 0.1);
+            color: var(--primary-saffron);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ========== MODAL POPUP ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-lg);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: var(--spacing-xl);
+            animation: slideUp 0.3s ease-out;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--spacing-lg);
+            right: var(--spacing-lg);
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-saffron);
+        }
+
+        .modal-body {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .modal-body p {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .modal-body h3 {
+            color: var(--primary-saffron);
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* ========== TIMELINE ========== */
+        .timeline {
+            position: relative;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            margin-bottom: var(--spacing-2xl);
+            display: grid;
+            grid-template-columns: 1fr 50px 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-dot {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 4px solid var(--primary-saffron);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-saffron);
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: 0 5px 20px var(--shadow-color);
+            border-left: 4px solid var(--primary-saffron);
+        }
+
+        .timeline-content h4 {
+            color: var(--primary-saffron);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.1rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                grid-template-columns: auto 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                text-align: left;
+            }
+
+            .timeline-dot {
+                width: 40px;
+                height: 40px;
+                font-size: 0.8rem;
+            }
+
+            .timeline-content {
+                border-left-width: 3px;
+            }
+        }
+
+        /* ========== SEARCH & FILTER STATES ========== */
+        .search-filter {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .search-filter input {
+            flex: 1;
+            min-width: 250px;
+            padding: var(--spacing-md);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .search-filter input:focus {
+            outline: none;
+            border-color: var(--primary-saffron);
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+        }
+
+        .states-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .state-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: 0 5px 20px var(--shadow-color);
+            border-left: 5px solid var(--primary-saffron);
+            transition: all var(--transition-normal);
+        }
+
+        .state-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px var(--shadow-color);
+            border-left-color: var(--primary-green);
+        }
+
+        .state-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-saffron);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .state-info {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .state-info strong {
+            color: var(--text-dark);
+            display: block;
+            margin-top: var(--spacing-sm);
+        }
+
+        /* ========== CONTACT FORM ========== */
+        .contact-section {
+            background: linear-gradient(135deg, var(--bg-light) 0%, white 100%);
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-saffron);
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-error {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.3);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ========== GALLERY LIGHTBOX ========== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-icon {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-lg);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: transform var(--transition-fast);
+        }
+
+        .lightbox-close:hover {
+            transform: rotate(90deg);
+        }
+
+        /* ========== LOGIN & REGISTER FORMS ========== */
+        .auth-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .auth-form {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 40px var(--shadow-color);
+        }
+
+        .auth-form h2 {
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--primary-saffron);
+            text-align: center;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: var(--spacing-md);
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color var(--transition-fast);
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-saffron);
+        }
+
+        .form-group.password-group {
+            position: relative;
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+            color: var(--text-light);
+        }
+
+        .auth-link a {
+            color: var(--primary-saffron);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color var(--transition-fast);
+        }
+
+        .auth-link a:hover {
+            color: var(--primary-green);
+        }
+
+        .dashboard-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 5px 20px var(--shadow-color);
+            border-top: 4px solid var(--primary-saffron);
+        }
+
+        .dashboard-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-saffron);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .dashboard-label {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* ========== BACK TO TOP BUTTON ========== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 20px rgba(255, 153, 51, 0.3);
+            transition: all var(--transition-normal);
+            z-index: 500;
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.4);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-section h4 {
+            color: var(--primary-saffron);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.1rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            transition: color var(--transition-fast);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-saffron);
+        }
+
+        .footer-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--spacing-lg);
+            text-align: center;
+            color: #999;
+        }
+
+        .admin-link {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--primary-saffron);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            margin-top: var(--spacing-lg);
+        }
+
+        .admin-link:hover {
+            background: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 768px) {
+            .nav-search {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: var(--spacing-lg);
+                box-shadow: 0 10px 30px var(--shadow-color);
+                gap: var(--spacing-md);
+            }
+
+            .quick-nav {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-item {
+                grid-template-columns: auto 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                text-align: left;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+            }
+
+            section {
+                padding: var(--spacing-xl) var(--spacing-md);
+            }
+
+            .card-grid, .states-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-to-top {
+                width: 45px;
+                height: 45px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .quick-nav {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                gap: var(--spacing-sm);
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: var(--spacing-md) var(--spacing-lg);
+                font-size: 0.95rem;
+            }
+
+            .facts-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .fact-number {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                padding: var(--spacing-lg);
+            }
+
+            .gallery-item {
+                aspect-ratio: auto;
+                min-height: 200px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========== SCROLL REVEAL ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-lg {
+            margin-top: var(--spacing-lg);
+        }
+
+        .mb-lg {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ========== LOADING STATE ========== */
+        .loading {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--primary-saffron);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+    </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <!-- ========== PRELOADER ========== -->
+  <div class="preloader" id="preloader">
+   <div class="preloader-content">
+    <div class="preloader-spinner"></div>
+    <div class="preloader-text">
+     Loading Digital Bharat...
+    </div>
+   </div>
+  </div><!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+   <div class="navbar-container">
+    <a href="#home" class="navbar-brand">
+     <div class="navbar-brand-icon">
+      🇮🇳
+     </div><span>Digital Bharat</span> </a> <!-- Navigation Links -->
+    <ul class="nav-links" id="navLinks">
+     <li><a href="#home" class="nav-link">Home</a></li>
+     <li><a href="#about" class="nav-link">About</a></li>
+     <li><a href="#history" class="nav-link">History</a></li>
+     <li><a href="#government" class="nav-link">Government</a></li>
+     <li><a href="#states" class="nav-link">States</a></li>
+     <li><a href="#defence" class="nav-link">Defence</a></li>
+     <li><a href="#sports" class="nav-link">Sports</a></li>
+     <li><a href="#space" class="nav-link">Space</a></li>
+     <li><a href="#tourism" class="nav-link">Tourism</a></li>
+     <li><a href="#culture" class="nav-link">Culture</a></li>
+     <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul><!-- Theme Toggle & Hamburger --> <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">🌙</button> <button class="hamburger" id="hamburger"> <span></span> <span></span> <span></span> </button>
+   </div>
+  </nav><!-- ========== MAIN CONTENT ========== -->
+  <main>
+   <!-- HERO SECTION -->
+   <section class="hero" id="home">
+    <div class="hero-content">
+     <div class="national-flag">
+      <div class="flag-saffron"></div>
+      <div class="flag-white"></div>
+      <div class="flag-green"></div>
+     </div>
+     <h1 class="hero-title">Welcome to Digital Bharat</h1>
+     <p class="hero-subtitle">Your Complete Gateway to India's Heritage, Knowledge &amp; Future</p>
+     <div class="hero-buttons">
+      <button class="btn-primary" onclick="smoothScroll('#about')">Explore Now</button> <button class="btn-secondary" onclick="smoothScroll('#contact')">Get In Touch</button>
+     </div>
+     <div class="quick-nav">
+      <div class="quick-nav-card" onclick="smoothScroll('#history')">
+       <div class="quick-nav-icon">
+        📚
+       </div>
+       <div class="quick-nav-title">
+        History
+       </div>
+      </div>
+      <div class="quick-nav-card" onclick="smoothScroll('#government')">
+       <div class="quick-nav-icon">
+        🏛️
+       </div>
+       <div class="quick-nav-title">
+        Government
+       </div>
+      </div>
+      <div class="quick-nav-card" onclick="smoothScroll('#space')">
+       <div class="quick-nav-icon">
+        🚀
+       </div>
+       <div class="quick-nav-title">
+        Space
+       </div>
+      </div>
+      <div class="quick-nav-card" onclick="smoothScroll('#tourism')">
+       <div class="quick-nav-icon">
+        ✈️
+       </div>
+       <div class="quick-nav-title">
+        Tourism
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- INDIA FACTS COUNTER SECTION -->
+   <section class="facts-section">
+    <div class="facts-container">
+     <div class="fact-card fade-in">
+      <div class="fact-number" id="countPopulation">
+       1.4B+
+      </div>
+      <div class="fact-label">
+       Population
+      </div>
+     </div>
+     <div class="fact-card fade-in">
+      <div class="fact-number" id="countArea">
+       3.28M
+      </div>
+      <div class="fact-label">
+       Area (sq km)
+      </div>
+     </div>
+     <div class="fact-card fade-in">
+      <div class="fact-number" id="countLanguages">
+       22
+      </div>
+      <div class="fact-label">
+       Official Languages
+      </div>
+     </div>
+     <div class="fact-card fade-in">
+      <div class="fact-number" id="countStates">
+       28
+      </div>
+      <div class="fact-label">
+       States
+      </div>
+     </div>
+    </div>
+   </section><!-- ABOUT INDIA SECTION -->
+   <section id="about">
+    <h2 class="section-title">About India</h2>
+    <p class="section-subtitle">Discover the essence of India</p>
+    <div class="card-grid">
+     <!-- Geography Card -->
+     <div class="card fade-in">
+      <div class="card-image"><img src="image 4.jpg" alt="Geography of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Geography unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Geography</h3>
+       <p class="card-description">India spans over 3.28 million square kilometers, making it the 7th largest country by area. It features diverse landscapes from the Himalayas to tropical beaches.</p>
+       <div class="card-tags">
+        <span class="tag">Diverse Terrain</span> <span class="tag">South Asia</span>
+       </div>
+      </div>
+     </div><!-- Population Card -->
+     <div class="card fade-in">
+      <div class="card-image"><img src="image 5.jpg" alt="Population of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Population unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Population</h3>
+       <p class="card-description">With over 1.4 billion people, India is the world's most populous country. It's home to diverse religions, cultures, and communities living together.</p>
+       <div class="card-tags">
+        <span class="tag">1.4B+ People</span> <span class="tag">Diverse</span>
+       </div>
+      </div>
+     </div><!-- Economy Card -->
+     <div class="card fade-in">
+      <div class="card-image"><img src="image 6.avif" alt="Indian Economy" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Economy unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Economy</h3>
+       <p class="card-description">India has the 5th largest economy globally. It's rapidly growing with sectors like IT, manufacturing, agriculture, and services driving development.</p>
+       <div class="card-tags">
+        <span class="tag">Growing Economy</span> <span class="tag">Tech Hub</span>
+       </div>
+      </div>
+     </div><!-- Culture Card -->
+     <div class="card fade-in">
+      <div class="card-image"><img src="image 7.avif" alt="Indian Culture" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Culture unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Culture</h3>
+       <p class="card-description">Indian culture is one of the world's oldest and most vibrant. It encompasses art, music, dance, philosophy, and traditions spanning millennia.</p>
+       <div class="card-tags">
+        <span class="tag">Ancient Traditions</span> <span class="tag">Vibrant Arts</span>
+       </div>
+      </div>
+     </div><!-- Languages Card -->
+     <div class="card fade-in">
+      <div class="card-image"><img src="image 8.avif" alt="Indian Languages" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Languages unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Languages</h3>
+       <p class="card-description">India recognizes 22 official languages. Hindi and English are widely spoken, while hundreds of regional languages and dialects are used across the country.</p>
+       <div class="card-tags">
+        <span class="tag">22 Languages</span> <span class="tag">Multilingual</span>
+       </div>
+      </div>
+     </div><!-- National Symbols Card -->
+     <div class="card fade-in">
+      <div class="card-image"><img src="image 9.jpg" alt="Indian National Symbols" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='National Symbols unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">National Symbols</h3>
+       <p class="card-description">National Animal: Bengal Tiger | National Bird: Indian Peacock | National Flower: Lotus | National Tree: Banyan</p>
+       <div class="card-tags">
+        <span class="tag">Tiger</span> <span class="tag">Peacock</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- HISTORY SECTION -->
+   <section id="history">
+    <h2 class="section-title">Indian History</h2>
+    <p class="section-subtitle">Timeline of India's remarkable journey</p>
+    <div class="timeline">
+     <div class="timeline-item fade-in">
+      <div class="timeline-content">
+       <h4>Ancient India (3000 BCE - 1200 CE)</h4>
+       <p>The Indus Valley Civilization, Vedic Period, Mauryan Empire, and Gupta Empire shaped India's foundation with advancements in science, mathematics, and philosophy.</p>
+      </div>
+      <div class="timeline-dot"><img src="https://via.placeholder.com/40x40?text=Ancient" alt="Ancient India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.textContent='📜';" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      </div>
+     </div>
+     <div class="timeline-item fade-in">
+      <div class="timeline-dot"><img src="https://via.placeholder.com/40x40?text=Medieval" alt="Medieval India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.textContent='🏰';" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      </div>
+      <div class="timeline-content">
+       <h4>Medieval India (1200 - 1757)</h4>
+       <p>Delhi Sultanate, Mughal Empire brought Islamic culture, Persian influence, and architectural wonders like the Taj Mahal to the subcontinent.</p>
+      </div>
+     </div>
+     <div class="timeline-item fade-in">
+      <div class="timeline-content">
+       <h4>British Raj &amp; Freedom Movement (1757 - 1947)</h4>
+       <p>British colonial rule led by inspiring leaders like Gandhi, Nehru, and Ambedkar resulted in India's independence on August 15, 1947.</p>
+      </div>
+      <div class="timeline-dot"><img src="https://via.placeholder.com/40x40?text=Freedom" alt="Freedom Movement" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.textContent='🕯️';" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      </div>
+     </div>
+     <div class="timeline-item fade-in">
+      <div class="timeline-dot"><img src="https://via.placeholder.com/40x40?text=Modern" alt="Modern India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.textContent='🚀';" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      </div>
+      <div class="timeline-content">
+       <h4>Modern India (1947 - Present)</h4>
+       <p>Independent India became a sovereign democratic republic, developed nuclear technology, achieved space exploration, and emerged as a global technological leader.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- GOVERNMENT & POLITICS SECTION -->
+   <section id="government">
+    <h2 class="section-title">Government &amp; Politics</h2>
+    <p class="section-subtitle">Structure of India's Democratic Governance</p>
+    <div class="card-grid">
+     <div class="card fade-in" onclick="openModal('presidentModal')">
+      <div class="card-image"><img src="image 10.jpg" alt="President of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='President unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">President</h3>
+       <p class="card-description">Head of State of India. The President is elected by members of parliament and state legislatures for a 5-year term.</p>
+       <div class="card-tags">
+        <span class="tag">Head of State</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="card fade-in" onclick="openModal('primeMinisterModal')">
+      <div class="card-image"><img src="image 11.jpg" alt="Prime Minister of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Prime Minister unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Prime Minister</h3>
+       <p class="card-description">Head of Government and chief executive. The PM is typically the leader of the majority party in the Lok Sabha.</p>
+       <div class="card-tags">
+        <span class="tag">Head of Government</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="card fade-in" onclick="openModal('parliamentModal')">
+      <div class="card-image"><img src="image 12.avif" alt="Parliament of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Parliament unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Parliament</h3>
+       <p class="card-description">Bicameral legislature: Lok Sabha (Lower House) with 545 members &amp; Rajya Sabha (Upper House) with 245 members.</p>
+       <div class="card-tags">
+        <span class="tag">Bicameral</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="card fade-in" onclick="openModal('constitutionModal')">
+      <div class="card-image"><img src="image 13.avif" alt="Indian Constitution" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Constitution unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Constitution</h3>
+       <p class="card-description">World's longest constitution adopted in 1950. It guarantees fundamental rights and establishes India as a sovereign democratic republic.</p>
+       <div class="card-tags">
+        <span class="tag">Longest Constitution</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="card fade-in" onclick="openModal('judiciaryModal')">
+      <div class="card-image"><img src="image 14.jpg" alt="Indian Judiciary" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Judiciary unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Judiciary</h3>
+       <p class="card-description">Supreme Court is the highest judicial authority. Independent judiciary ensures justice and constitutional protection for all citizens.</p>
+       <div class="card-tags">
+        <span class="tag">Supreme Court</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="card fade-in" onclick="openModal('electionsModal')">
+      <div class="card-image"><img src="image 15.jpg" alt="Indian Elections" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Elections unavailable';">
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Elections</h3>
+       <p class="card-description">World's largest democracy conducts periodic elections. Universal adult suffrage ensures every citizen over 18 can vote.</p>
+       <div class="card-tags">
+        <span class="tag">Democratic Elections</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- STATES & UNION TERRITORIES SECTION -->
+   <section id="states">
+    <h2 class="section-title">States &amp; Union Territories</h2>
+    <p class="section-subtitle">Explore all 28 States and 8 Union Territories of India</p>
+    <div class="search-filter">
+     <input type="text" id="stateSearch" placeholder="Search states or Union Territories...">
+    </div>
+    <div class="states-grid" id="statesContainer">
+     <!-- States will be dynamically loaded here -->
+    </div>
+   </section><!-- DEFENCE SECTION -->
+   <section id="defence">
+    <h2 class="section-title">Indian Defence</h2>
+    <p class="section-subtitle">Armed Forces of India</p>
+    <div class="card-grid">
+     <div class="section-card fade-in">
+      <div class="card-image">
+       🎖️
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Indian Army</h3>
+       <p class="card-description">World's 2nd largest army by personnel. Protects national borders and maintains internal security. Headquarters in New Delhi.</p>
+       <div class="card-tags">
+        <span class="tag">Land Force</span> <span class="tag">2nd Largest</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in">
+      <div class="card-image">
+       ⚓
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Indian Navy</h3>
+       <p class="card-description">Safeguards maritime interests and coastlines. Operates aircraft carriers and advanced warships. Protects over 7,000 km of coastline.</p>
+       <div class="card-tags">
+        <span class="tag">Naval Force</span> <span class="tag">Indian Ocean</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in">
+      <div class="card-image">
+       ✈️
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Indian Air Force</h3>
+       <p class="card-description">4th largest air force globally. Defends airspace and conducts aerial combat. Equipped with advanced fighter jets and helicopters.</p>
+       <div class="card-tags">
+        <span class="tag">Aerial Defence</span> <span class="tag">4th Largest</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- SPORTS SECTION -->
+   <section id="sports">
+    <h2 class="section-title">Indian Sports</h2>
+    <p class="section-subtitle">Achievements in Global Sports</p>
+    <div class="card-grid">
+     <div class="section-card fade-in">
+      <div class="card-image">
+       🏏
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Cricket</h3>
+       <p class="card-description">Cricket is the most popular sport in India. Indian Cricket Team won the ICC World Cup in 1983 and 2011. Home to IPL (Indian Premier League).</p>
+       <div class="card-tags">
+        <span class="tag">Most Popular</span> <span class="tag">2 World Cups</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in">
+      <div class="card-image">
+       🏑
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Hockey</h3>
+       <p class="card-description">National sport of India. Indian Hockey Team won 8 Olympic Gold medals. Currently experiencing a resurgence in international competitions.</p>
+       <div class="card-tags">
+        <span class="tag">National Sport</span> <span class="tag">8 Gold Medals</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in">
+      <div class="card-image">
+       🥇
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Olympics</h3>
+       <p class="card-description">India hosted Asian Games multiple times. Athletes excel in weightlifting, badminton, wrestling, and athletics. Recent Olympic successes with multiple medal winners.</p>
+       <div class="card-tags">
+        <span class="tag">Olympic Medals</span> <span class="tag">Multi-Sport</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in">
+      <div class="card-image">
+       🏅
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Achievements</h3>
+       <p class="card-description">Indian athletes have won medals in badminton, tennis, shooting, wrestling, and weightlifting. Success in Paralympics showcases inclusive sporting spirit.</p>
+       <div class="card-tags">
+        <span class="tag">Multi-Discipline</span> <span class="tag">Global Competition</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- SPACE & SCIENCE SECTION -->
+   <section id="space">
+    <h2 class="section-title">Space &amp; Science</h2>
+    <p class="section-subtitle">India's Journey to Space Exploration</p>
+    <div class="card-grid">
+     <div class="section-card fade-in">
+      <div class="card-image">
+       🚀
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">ISRO</h3>
+       <p class="card-description">Indian Space Research Organisation - A pioneer in space technology. Developed indigenous satellite systems and launch vehicles. Leading Asian space agencies.</p>
+       <div class="card-tags">
+        <span class="tag">Space Agency</span> <span class="tag">Asian Leader</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in">
+      <div class="card-image">
+       🌙
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Chandrayaan</h3>
+       <p class="card-description">India's lunar exploration mission. Chandrayaan-1 was the first Indian lunar spacecraft. Chandrayaan-3 successfully landed on the Moon's south pole in 2023.</p>
+       <div class="card-tags">
+        <span class="tag">Lunar Mission</span> <span class="tag">South Pole Landing</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in">
+      <div class="card-image">
+       👨‍🚀
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Gaganyaan</h3>
+       <p class="card-description">India's human spaceflight program. Aims to send Indian astronauts to space. Expected to make India the 4th country to send humans to space.</p>
+       <div class="card-tags">
+        <span class="tag">Human Spaceflight</span> <span class="tag">Future Mission</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in">
+      <div class="card-image">
+       🔬
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Research</h3>
+       <p class="card-description">India excels in satellite technology, GPS systems (NavIC), and planetary missions. Active research in astronomy, astrophysics, and climate science.</p>
+       <div class="card-tags">
+        <span class="tag">Satellite Tech</span> <span class="tag">Scientific Research</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- TOURISM SECTION -->
+   <section id="tourism">
+    <h2 class="section-title">Tourism &amp; Heritage Sites</h2>
+    <p class="section-subtitle">Explore India's iconic monuments and destinations</p>
+    <div class="gallery-grid">
+     <div class="gallery-item fade-in" onclick="openLightbox('taj-mahal')">
+      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #e8a4c1 0%, #f5deb3 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+       🕌
+      </div>
+      <div class="gallery-overlay">
+       <div class="gallery-icon">
+        🔍
+       </div>
+      </div>
+     </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('red-fort')">
+      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #d2691e 0%, #cd853f 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+       🏯
+      </div>
+      <div class="gallery-overlay">
+       <div class="gallery-icon">
+        🔍
+       </div>
+      </div>
+     </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('qutub-minar')">
+      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+       🗼
+      </div>
+      <div class="gallery-overlay">
+       <div class="gallery-icon">
+        🔍
+       </div>
+      </div>
+     </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('gateway-india')">
+      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #704214 0%, #8b6914 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+       ⛩️
+      </div>
+      <div class="gallery-overlay">
+       <div class="gallery-icon">
+        🔍
+       </div>
+      </div>
+     </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('varanasi')">
+      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #ffa500 0%, #ff69b4 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+       🕉️
+      </div>
+      <div class="gallery-overlay">
+       <div class="gallery-icon">
+        🔍
+       </div>
+      </div>
+     </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('himalaya')">
+      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #87ceeb 0%, #add8e6 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+       ⛰️
+      </div>
+      <div class="gallery-overlay">
+       <div class="gallery-icon">
+        🔍
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- CULTURE & FESTIVALS SECTION -->
+   <section id="culture">
+    <h2 class="section-title">Culture &amp; Festivals</h2>
+    <p class="section-subtitle">Celebrate the diversity and traditions of India</p>
+    <div class="card-grid">
+     <div class="section-card fade-in" onclick="openModal('diwalliModal')">
+      <div class="card-image">
+       🪔
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Diwali</h3>
+       <p class="card-description">Festival of Lights celebrated by millions. Symbolizes triumph of light over darkness and good over evil. Celebrated in October/November.</p>
+       <div class="card-tags">
+        <span class="tag">Festival of Lights</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in" onclick="openModal('holiModal')">
+      <div class="card-image">
+       🎨
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Holi</h3>
+       <p class="card-description">Festival of Colors celebrating spring and love. People play with colored powder and water. Celebrated in March.</p>
+       <div class="card-tags">
+        <span class="tag">Festival of Colors</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in" onclick="openModal('eidModal')">
+      <div class="card-image">
+       🌙
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Eid</h3>
+       <p class="card-description">Islamic festival marking end of Ramadan. Celebrated with prayers, feasts, and family gatherings. Two main festivals: Eid ul-Fitr and Eid ul-Adha.</p>
+       <div class="card-tags">
+        <span class="tag">Islamic Festival</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in" onclick="openModal('navaratriModal')">
+      <div class="card-image">
+       💃
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Navratri</h3>
+       <p class="card-description">Nine nights festival honoring Goddess Durga. Featuring Garba and Dandiya dances. Celebrated in September/October across India.</p>
+       <div class="card-tags">
+        <span class="tag">Nine Nights</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in" onclick="openModal('pongalModal')">
+      <div class="card-image">
+       🌾
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Pongal</h3>
+       <p class="card-description">South Indian harvest festival thanking the sun god. Traditional rice dish "Pongal" gives festival its name. Celebrated in January.</p>
+       <div class="card-tags">
+        <span class="tag">Harvest Festival</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+     <div class="section-card fade-in" onclick="openModal('republicModal')">
+      <div class="card-image">
+       🇮🇳
+      </div>
+      <div class="card-content">
+       <h3 class="card-title">Republic Day</h3>
+       <p class="card-description">Celebrates India's Constitution (January 26). Grand parades showcase India's diversity, military power, and cultural heritage.</p>
+       <div class="card-tags">
+        <span class="tag">National Day</span> <span class="tag">Click for details</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- CONTACT SECTION -->
+   <section class="contact-section" id="contact">
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-subtitle">Have questions? We'd love to hear from you</p>
+    <div class="contact-container">
+     <form class="auth-form" id="contactForm" onsubmit="submitContact(event)">
+      <div class="form-group">
+       <label for="contactName">Full Name *</label> <input type="text" id="contactName" placeholder="Enter your name" required>
+       <div class="form-error" id="nameError"></div>
+      </div>
+      <div class="form-group">
+       <label for="contactEmail">Email *</label> <input type="email" id="contactEmail" placeholder="Enter your email" required>
+       <div class="form-error" id="emailError"></div>
+      </div>
+      <div class="form-group">
+       <label for="contactPhone">Phone Number</label> <input type="tel" id="contactPhone" placeholder="Enter your phone number">
+      </div>
+      <div class="form-group">
+       <label for="contactMessage">Message *</label> <textarea id="contactMessage" placeholder="Write your message here..." required></textarea>
+       <div class="form-error" id="messageError"></div>
+      </div><button type="submit" class="btn-submit">Send Message</button>
+     </form>
+    </div>
+   </section>
+  </main><!-- ========== MODALS ========== --> <!-- Government Modals -->
+  <div class="modal" id="presidentModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('presidentModal')">✕</button>
+    <h3 class="modal-title">President of India</h3>
+    <div class="modal-body">
+     <p>The President of India is the constitutional head of the state and serves as the chief executive authority under the Indian Constitution.</p>
+     <h3>Key Responsibilities:</h3>
+     <p>✓ Represents the nation at home and internationally<br>
+       ✓ Appoints the Prime Minister<br>
+       ✓ Grants pardons and remissions<br>
+       ✓ Commander-in-Chief of Armed Forces</p>
+     <h3>Term:</h3>
+     <p>5 years, with a maximum of two terms. Elected by members of Parliament and state legislatures.</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="primeMinisterModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('primeMinisterModal')">✕</button>
+    <h3 class="modal-title">Prime Minister of India</h3>
+    <div class="modal-body">
+     <p>The Prime Minister is the head of government and the chief executive of India. They are responsible for the day-to-day administration of the country.</p>
+     <h3>Key Powers:</h3>
+     <p>✓ Leads the Council of Ministers<br>
+       ✓ Proposes the budget<br>
+       ✓ Heads the Cabinet<br>
+       ✓ Implements government policies</p>
+     <h3>Selection:</h3>
+     <p>Typically the leader of the majority party in the Lok Sabha (Lower House of Parliament).</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="parliamentModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('parliamentModal')">✕</button>
+    <h3 class="modal-title">Parliament of India</h3>
+    <div class="modal-body">
+     <p>The Parliament of India is the bicameral legislature that exercises the supreme legislative authority in India.</p>
+     <h3>Structure:</h3>
+     <p><strong>Lok Sabha (Lower House):</strong> 545 members directly elected by people for 5-year terms.</p>
+     <p><strong>Rajya Sabha (Upper House):</strong> 245 members, representing states and Union Territories.</p>
+     <h3>Functions:</h3>
+     <p>✓ Makes laws<br>
+       ✓ Controls budget<br>
+       ✓ Approves international treaties<br>
+       ✓ Impeaches President/Judges</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="constitutionModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('constitutionModal')">✕</button>
+    <h3 class="modal-title">Indian Constitution</h3>
+    <div class="modal-body">
+     <p>The Constitution of India is the supreme law of India. Adopted on January 26, 1950, it is the longest constitution of any country.</p>
+     <h3>Key Features:</h3>
+     <p>✓ Establishes India as a sovereign democratic republic<br>
+       ✓ 470 articles and 12 schedules<br>
+       ✓ Guarantees fundamental rights to citizens<br>
+       ✓ Defines the powers of all three branches</p>
+     <h3>Fundamental Rights:</h3>
+     <p>Right to equality, freedom of expression, religion, and constitution.</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="judiciaryModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('judiciaryModal')">✕</button>
+    <h3 class="modal-title">Indian Judiciary</h3>
+    <div class="modal-body">
+     <p>The Indian judiciary is an independent institution comprising the Supreme Court, High Courts, and District Courts.</p>
+     <h3>Hierarchy:</h3>
+     <p><strong>Supreme Court:</strong> Highest court of appeal<br><strong>High Courts:</strong> 25 High Courts across states<br><strong>District Courts:</strong> Local level courts</p>
+     <h3>Role:</h3>
+     <p>✓ Interprets Constitution<br>
+       ✓ Protects fundamental rights<br>
+       ✓ Settles disputes between states<br>
+       ✓ Reviews government actions</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="electionsModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('electionsModal')">✕</button>
+    <h3 class="modal-title">Elections in India</h3>
+    <div class="modal-body">
+     <p>India conducts the world's largest democratic elections involving millions of voters.</p>
+     <h3>Types:</h3>
+     <p><strong>General Elections:</strong> Held every 5 years for Lok Sabha<br><strong>State Elections:</strong> For state assemblies<br><strong>Local Elections:</strong> For municipalities</p>
+     <h3>Features:</h3>
+     <p>✓ Universal Adult Suffrage (18+ can vote)<br>
+       ✓ Secret ballot system<br>
+       ✓ Electronic Voting Machines (EVM)<br>
+       ✓ Conducted by Election Commission of India</p>
+    </div>
+   </div>
+  </div><!-- Festival Modals -->
+  <div class="modal" id="diwalliModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('diwalliModal')">✕</button>
+    <h3 class="modal-title">Diwali - Festival of Lights</h3>
+    <div class="modal-body">
+     <p>Diwali is one of the major festivals celebrated across India and by Hindus worldwide. It symbolizes the triumph of light over darkness and good over evil.</p>
+     <h3>Celebrations:</h3>
+     <p>✓ Lighting oil lamps (diyas)<br>
+       ✓ Fireworks and decorations<br>
+       ✓ Exchanging sweets and gifts<br>
+       ✓ Family gatherings and prayers<br>
+       ✓ Cleaning and whitewashing homes</p>
+     <h3>Duration:</h3>
+     <p>5 days, celebrated in October or November. Celebrated by Hindus, Sikhs, Buddhists, and Jains.</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="holiModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('holiModal')">✕</button>
+    <h3 class="modal-title">Holi - Festival of Colors</h3>
+    <div class="modal-body">
+     <p>Holi is a vibrant festival celebrating the arrival of spring, love, and the victory of good over evil.</p>
+     <h3>Traditions:</h3>
+     <p>✓ Playing with colored powder (gulal)<br>
+       ✓ Water balloon fights<br>
+       ✓ Bonfire celebrations (Holika Dahan)<br>
+       ✓ Sharing sweets and meals<br>
+       ✓ Meeting friends and family</p>
+     <h3>Significance:</h3>
+     <p>Marks the end of winter, celebrates love, and promotes forgiveness and reconciliation among people.</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="eidModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('eidModal')">✕</button>
+    <h3 class="modal-title">Eid - Islamic Festival</h3>
+    <div class="modal-body">
+     <p>Eid is celebrated by Muslims across India and the world. Two main types: Eid ul-Fitr and Eid ul-Adha.</p>
+     <h3>Eid ul-Fitr:</h3>
+     <p>Marks the end of Ramadan (month of fasting). Celebrated with prayers, new clothes, feasts, and exchanging gifts.</p>
+     <h3>Eid ul-Adha:</h3>
+     <p>Commemorates Prophet Abraham's willingness to sacrifice. Involves prayers, animal sacrifice, and community feasts.</p>
+     <h3>Common Practices:</h3>
+     <p>✓ Early morning prayers<br>
+       ✓ New or best clothes<br>
+       ✓ Delicious meals and sweets<br>
+       ✓ Giving to the poor<br>
+       ✓ Family gatherings</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="navaratriModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('navaratriModal')">✕</button>
+    <h3 class="modal-title">Navratri - Nine Nights Festival</h3>
+    <div class="modal-body">
+     <p>Navratri celebrates the divine feminine energy and the victory of Goddess Durga over evil. Celebrated for 9 nights and 10 days.</p>
+     <h3>Significance:</h3>
+     <p>Each day dedicated to a different form of Goddess Durga. Celebrated in autumn (September/October).</p>
+     <h3>Celebrations:</h3>
+     <p>✓ Garba and Dandiya dances (circular dances)<br>
+       ✓ Fasting and prayers<br>
+       ✓ Building small idol of Goddess<br>
+       ✓ Colorful decorations<br>
+       ✓ Cultural programs and performances</p>
+     <h3>Regional Variations:</h3>
+     <p>Widely celebrated in Gujarat, North India with different traditions and rituals.</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="pongalModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('pongalModal')">✕</button>
+    <h3 class="modal-title">Pongal - Harvest Festival</h3>
+    <div class="modal-body">
+     <p>Pongal is a major harvest festival celebrated in Tamil Nadu and other South Indian states. It thanks the sun god for a good harvest.</p>
+     <h3>Traditions:</h3>
+     <p>✓ Cooking new rice (Pongal) in earthen pots<br>
+       ✓ Decorating homes with sugarcane and rice<br>
+       ✓ Bull taming (Jallikattu)<br>
+       ✓ Swapping gifts and greetings<br>
+       ✓ Feasting with family</p>
+     <h3>Duration:</h3>
+     <p>4 days festival celebrated in January. Each day has specific significance and traditions.</p>
+    </div>
+   </div>
+  </div>
+  <div class="modal" id="republicModal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('republicModal')">✕</button>
+    <h3 class="modal-title">Republic Day</h3>
+    <div class="modal-body">
+     <p>Republic Day on January 26 celebrates India's Constitution. It marks the day India became a sovereign democratic republic in 1950.</p>
+     <h3>Significance:</h3>
+     <p>✓ Celebrates independence from British rule<br>
+       ✓ Honors the Constitution<br>
+       ✓ Showcases national pride and unity<br>
+       ✓ Celebrates diversity of India</p>
+     <h3>Celebrations:</h3>
+     <p>✓ Grand parade at Rajpath, New Delhi<br>
+       ✓ National anthem and flag hoisting<br>
+       ✓ Cultural programs showcasing regional traditions<br>
+       ✓ Military display<br>
+       ✓ Awards for bravery and achievements</p>
+    </div>
+   </div>
+  </div><!-- Gallery Lightbox -->
+  <div class="lightbox" id="galleryLightbox">
+   <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button> <img class="lightbox-image" id="lightboxImage" src="" alt="">
+   </div>
+  </div><!-- Back to Top Button --> <button class="back-to-top" id="backToTop" onclick="smoothScroll('html')">↑</button> <!-- ========== JAVASCRIPT ========== -->
+  <script>
+        // ========== GLOBAL VARIABLES & CONFIGURATION ==========
+        const STATES_DATA = [
+            // Northern States
+            { name: 'Andhra Pradesh', capital: 'Amaravati', population: '49.4M', region: 'South' },
+            { name: 'Arunachal Pradesh', capital: 'Itanagar', population: '1.4M', region: 'North-East' },
+            { name: 'Assam', capital: 'Dispur', population: '31.2M', region: 'North-East' },
+            { name: 'Bihar', capital: 'Patna', population: '103.8M', region: 'East' },
+            { name: 'Chhattisgarh', capital: 'Raipur', population: '25.5M', region: 'Central' },
+            { name: 'Goa', capital: 'Panaji', population: '1.4M', region: 'West' },
+            { name: 'Gujarat', capital: 'Gandhinagar', population: '60.4M', region: 'West' },
+            { name: 'Haryana', capital: 'Chandigarh', population: '25.4M', region: 'North' },
+            { name: 'Himachal Pradesh', capital: 'Shimla', population: '6.9M', region: 'North' },
+            { name: 'Jharkhand', capital: 'Ranchi', population: '32.9M', region: 'East' },
+            { name: 'Karnataka', capital: 'Bengaluru', population: '61.1M', region: 'South' },
+            { name: 'Kerala', capital: 'Thiruvananthapuram', population: '33.4M', region: 'South' },
+            { name: 'Madhya Pradesh', capital: 'Bhopal', population: '72.6M', region: 'Central' },
+            { name: 'Maharashtra', capital: 'Mumbai', population: '112.4M', region: 'West' },
+            { name: 'Manipur', capital: 'Imphal', population: '2.9M', region: 'North-East' },
+            { name: 'Meghalaya', capital: 'Shillong', population: '3M', region: 'North-East' },
+            { name: 'Mizoram', capital: 'Aizawl', population: '1.1M', region: 'North-East' },
+            { name: 'Nagaland', capital: 'Kohima', population: '2M', region: 'North-East' },
+            { name: 'Odisha', capital: 'Bhubaneswar', population: '42M', region: 'East' },
+            { name: 'Punjab', capital: 'Chandigarh', population: '27.7M', region: 'North' },
+            { name: 'Rajasthan', capital: 'Jaipur', population: '68.5M', region: 'North' },
+            { name: 'Sikkim', capital: 'Gangtok', population: '0.6M', region: 'North-East' },
+            { name: 'Tamil Nadu', capital: 'Chennai', population: '72.1M', region: 'South' },
+            { name: 'Telangana', capital: 'Hyderabad', population: '35.2M', region: 'South' },
+            { name: 'Tripura', capital: 'Agartala', population: '3.7M', region: 'North-East' },
+            { name: 'Uttar Pradesh', capital: 'Lucknow', population: '199.8M', region: 'North' },
+            { name: 'Uttarakhand', capital: 'Dehradun', population: '10.1M', region: 'North' },
+            { name: 'West Bengal', capital: 'Kolkata', population: '91.3M', region: 'East' },
+            
+            // Union Territories
+            { name: 'Andaman & Nicobar Islands', capital: 'Port Blair', population: '0.4M', region: 'UT' },
+            { name: 'Chandigarh', capital: 'Chandigarh', population: '1M', region: 'UT' },
+            { name: 'Dadra & Nagar Haveli', capital: 'Silvassa', population: '0.4M', region: 'UT' },
+            { name: 'Delhi', capital: 'New Delhi', population: '16.8M', region: 'UT' },
+            { name: 'Jammu & Kashmir', capital: 'Srinagar', population: '12.3M', region: 'UT' },
+            { name: 'Ladakh', capital: 'Leh', population: '0.3M', region: 'UT' },
+            { name: 'Lakshadweep', capital: 'Kavaratti', population: '0.06M', region: 'UT' },
+            { name: 'Puducherry', capital: 'Pondicherry', population: '1.2M', region: 'UT' }
+        ];
+
+        const SEARCH_CONTENT = {
+            history: [
+                { title: 'Ancient India', desc: 'Indus Valley Civilization, Mauryan Empire' },
+                { title: 'Medieval India', desc: 'Delhi Sultanate, Mughal Empire' },
+                { title: 'Freedom Movement', desc: 'Gandhi, Independence, August 15 1947' }
+            ],
+            government: [
+                { title: 'President', desc: 'Constitutional head of state' },
+                { title: 'Prime Minister', desc: 'Head of government' },
+                { title: 'Parliament', desc: 'Lok Sabha and Rajya Sabha' }
+            ],
+            sports: [
+                { title: 'Cricket', desc: 'ICC World Cup winner' },
+                { title: 'Hockey', desc: 'National sport with Olympic medals' },
+                { title: 'Olympics', desc: 'Indian achievements in sports' }
+            ],
+            space: [
+                { title: 'ISRO', desc: 'Indian Space Research Organisation' },
+                { title: 'Chandrayaan', desc: 'Lunar exploration mission' },
+                { title: 'Gaganyaan', desc: 'Human spaceflight program' }
+            ]
+        };
+
+        // ========== PRELOADER ==========
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Load states
+            loadStates();
+            // Set up event listeners
+            setupEventListeners();
+            // Set up scroll animations
+            setupScrollAnimations();
+            // Initialize theme
+            initializeTheme();
+        }
+
+        // ========== THEME TOGGLE ==========
+        function initializeTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeToggle').textContent = '☀️';
+            }
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+        });
+
+        // ========== HAMBURGER MENU ==========
+        document.getElementById('hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Close menu when link is clicked
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('hamburger').classList.remove('active');
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // ========== GLOBAL SEARCH FUNCTIONALITY ==========
+        let searchTimeout;
+        document.getElementById('globalSearch').addEventListener('input', function(e) {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.toLowerCase();
+            
+            searchTimeout = setTimeout(() => {
+                if (query.length < 2) {
+                    document.getElementById('searchResults').classList.remove('active');
+                    return;
+                }
+
+                const results = [];
+                Object.values(SEARCH_CONTENT).forEach(section => {
+                    section.forEach(item => {
+                        if (item.title.toLowerCase().includes(query) || 
+                            item.desc.toLowerCase().includes(query)) {
+                            results.push(item);
+                        }
+                    });
+                });
+
+                // Also search states
+                STATES_DATA.forEach(state => {
+                    if (state.name.toLowerCase().includes(query)) {
+                        results.push({ title: state.name, desc: `Capital: ${state.capital}` });
+                    }
+                });
+
+                displaySearchResults(results.slice(0, 8));
+            }, 300);
+        });
+
+        function displaySearchResults(results) {
+            const resultsContainer = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-result-item">No results found</div>';
+                resultsContainer.classList.add('active');
+                return;
+            }
+
+            resultsContainer.innerHTML = results.map((result, index) => `
+                <div class="search-result-item" onclick="handleSearchResult('${result.title}')">
+                    <div class="search-result-title">${highlightMatch(result.title)}</div>
+                    <div class="search-result-desc">${result.desc}</div>
+                </div>
+            `).join('');
+
+            resultsContainer.classList.add('active');
+        }
+
+        function highlightMatch(text) {
+            const query = document.getElementById('globalSearch').value;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<strong>$1</strong>');
+        }
+
+        function handleSearchResult(title) {
+            const stateElement = document.querySelector(`[data-state="${title}"]`);
+            if (stateElement) {
+                stateElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            document.getElementById('globalSearch').value = '';
+            document.getElementById('searchResults').classList.remove('active');
+        }
+
+        // ========== STATES FILTERING ==========
+        function loadStates() {
+            const container = document.getElementById('statesContainer');
+            renderStates(STATES_DATA);
+        }
+
+        function renderStates(statesToShow) {
+            const container = document.getElementById('statesContainer');
+            container.innerHTML = statesToShow.map((state, index) => `
+                <div class="state-card fade-in" data-state="${state.name}" style="animation-delay: ${index * 50}ms">
+                    <div class="state-name">${state.name}</div>
+                    <div class="state-info">
+                        <strong>Capital:</strong> ${state.capital}
+                        <strong>Population:</strong> ${state.population}
+                        <strong>Region:</strong> ${state.region}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('stateSearch').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const filtered = STATES_DATA.filter(state => 
+                state.name.toLowerCase().includes(query) ||
+                state.capital.toLowerCase().includes(query)
+            );
+            renderStates(filtered);
+        });
+
+        // ========== SCROLL ANIMATIONS ==========
+        function setupScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // ========== COUNTER ANIMATION ==========
+        function animateCounter(element, target, duration = 2000) {
+            let current = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = current.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }, 16);
+        }
+
+        // Trigger counter animation when section is visible
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.hasAttribute('data-animated')) {
+                    entry.target.setAttribute('data-animated', 'true');
+                    const counterElements = [
+                        { el: document.getElementById('countPopulation'), target: 1400 },
+                        { el: document.getElementById('countArea'), target: 3280 },
+                        { el: document.getElementById('countLanguages'), target: 22 },
+                        { el: document.getElementById('countStates'), target: 28 }
+                    ];
+                    counterElements.forEach(({ el, target }) => {
+                        if (el) animateCounter(el, target);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelector('.facts-section') && 
+            counterObserver.observe(document.querySelector('.facts-section'));
+
+        // ========== MODAL FUNCTIONS ==========
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // ========== GALLERY LIGHTBOX ==========
+        function openLightbox(imageId) {
+            const lightboxImages = {
+                'taj-mahal': '🕌 Taj Mahal - Monument to Love',
+                'red-fort': '🏯 Red Fort - Delhi Heritage',
+                'qutub-minar': '🗼 Qutub Minar - Architectural Marvel',
+                'gateway-india': '⛩️ Gateway of India - Mumbai',
+                'varanasi': '🕉️ Varanasi - Spiritual Heart',
+                'himalaya': '⛰️ Himalayan Ranges - Northern Beauty'
+            };
+            
+            const lightbox = document.getElementById('galleryLightbox');
+            const imageEl = document.getElementById('lightboxImage');
+            imageEl.alt = lightboxImages[imageId];
+            imageEl.textContent = lightboxImages[imageId];
+            
+            // Create a placeholder since we can't load actual images
+            imageEl.style.display = 'none';
+            const placeholderDiv = document.createElement('div');
+            placeholderDiv.style.cssText = `
+                width: 600px;
+                height: 600px;
+                background: linear-gradient(135deg, #FF9933 0%, #138808 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 4rem;
+                color: white;
+                border-radius: 12px;
+            `;
+            placeholderDiv.textContent = imageEl.alt.charAt(0);
+            
+            if (lightbox.querySelector('div[style*="width: 600px"]')) {
+                lightbox.querySelector('div[style*="width: 600px"]').remove();
+            }
+            lightbox.querySelector('.lightbox-content').insertBefore(placeholderDiv, imageEl);
+            
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('galleryLightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ========== CONTACT FORM VALIDATION & SUBMISSION ==========
+        function submitContact(event) {
+            event.preventDefault();
+
+            // Clear previous errors
+            document.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
+
+            // Validate form
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const phone = document.getElementById('contactPhone').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            let isValid = true;
+
+            // Name validation
+            if (name.length < 3) {
+                document.getElementById('nameError').textContent = 'Name must be at least 3 characters';
+                document.getElementById('nameError').classList.add('show');
+                isValid = false;
+            }
+
+            // Email validation
+            if (!isValidEmail(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email';
+                document.getElementById('emailError').classList.add('show');
+                isValid = false;
+            }
+
+            // Message validation
+            if (message.length < 10) {
+                document.getElementById('messageError').textContent = 'Message must be at least 10 characters';
+                document.getElementById('messageError').classList.add('show');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Prepare mailto link
+            const subject = encodeURIComponent('Digital Bharat Inquiry from ' + name);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `Email: ${email}\n` +
+                `Phone: ${phone}\n\n` +
+                `Message:\n${message}`
+            );
+
+            const mailtoLink = `mailto:rohittsep22@gmail.com?subject=${subject}&body=${body}`;
+
+            // Open mail client
+            window.location.href = mailtoLink;
+
+            // Show success message
+            showSuccessMessage();
+            document.getElementById('contactForm').reset();
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showSuccessMessage() {
+            const form = document.getElementById('contactForm');
+            const successMsg = document.createElement('div');
+            successMsg.style.cssText = `
+                background: #4CAF50;
+                color: white;
+                padding: 1rem;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+                animation: slideUp 0.3s ease-out;
+            `;
+            successMsg.textContent = '✓ Your message is ready to send! Your email client will open now.';
+            form.insertBefore(successMsg, form.firstChild);
+
+            setTimeout(() => successMsg.remove(), 5000);
+        }
+
+        // ========== SMOOTH SCROLL ==========
+        function smoothScroll(target) {
+            const element = document.querySelector(target);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // ========== BACK TO TOP BUTTON ==========
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ========== NAVBAR SCROLL EFFECT ==========
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.scrollY;
+            if (scrollTop > 50) {
+                navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.15)';
+            } else {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // ========== EVENT LISTENER SETUP ==========
+        function setupEventListeners() {
+            // Close search results when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.nav-search')) {
+                    document.getElementById('searchResults').classList.remove('active');
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                    document.getElementById('galleryLightbox').classList.remove('active');
+                }
+            });
+        }
+
+        // ========== CONTACT FORM ADDITIONAL FEATURES ==========
+        // Password toggle for password fields (if added)
+        document.querySelectorAll('.password-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.textContent = '👁️';
+                } else {
+                    input.type = 'password';
+                    this.textContent = '👁️‍🗨️';
+                }
+            });
+        });
+
+        // ========== API STRUCTURE COMMENTS ==========
+        /*
+        ===== RECOMMENDED API.JS STRUCTURE =====
+        
+        // api.js - API Handler for Digital Bharat
+        
+        // Core API Functions
+        - getStatesData() - Fetch all states and UTs
+        - getHistoricalEvents() - Fetch historical data
+        - getGovernmentInfo() - Fetch government structure info
+        - getDefenceData() - Fetch defence forces info
+        - getSportsAchievements() - Fetch sports data
+        - getSpacePrograms() - Fetch ISRO programs
+        - getTouristSites() - Fetch tourism data
+        - getFestivalInfo() - Fetch festival details
+        
+        // Error Handling
+        - handleApiError(error) - Centralized error handler
+        - retryApiCall(fn, retries) - Retry logic
+        
+        // Data Transformation
+        - transformStateData(rawData) - Format state data
+        - transformHistoryData(rawData) - Format history data
+        */
+
+        /*
+        ===== RECOMMENDED SEARCH.JS STRUCTURE =====
+        
+        // search.js - Search & Filter Logic
+        
+        // Search Functions
+        - initializeSearch() - Initialize search functionality
+        - performSearch(query) - Execute search
+        - filterResults(results, criteria) - Filter search results
+        - highlightSearchTerms(text, query) - Highlight matches
+        
+        // Search Optimization
+        - debounceSearch(func, wait) - Debounce search input
+        - buildSearchIndex() - Pre-build search index
+        - getCachedResults(query) - Return cached results
+        
+        // Advanced Features
+        - getSuggestions(query) - Auto-complete suggestions
+        - getRelatedSearches(query) - Related search terms
+        - trackSearchAnalytics(query) - Track user searches
+        */
+
+        /*
+        ===== RECOMMENDED CONTACT.JS STRUCTURE =====
+        
+        // contact.js - Contact Form Handler
+        
+        // Form Validation
+        - validateName(name) - Validate name field
+        - validateEmail(email) - Validate email format
+        - validatePhone(phone) - Validate phone number
+        - validateMessage(message) - Validate message
+        
+        // Form Submission
+        - submitForm(formData) - Submit contact form
+        - sendEmail(emailData) - Send email notification
+        - handleFormErrors(errors) - Handle validation errors
+        
+        // User Feedback
+        - showSuccessNotification() - Show success message
+        - showErrorNotification(error) - Show error message
+        - clearFormFields() - Clear all form fields
+        */
+
+        // Admin Panel Link Note
+        console.log('Admin Panel: admin.html - Frontend Only (Link Provided in Footer)');
+    </script><!-- ========== FOOTER ========== -->
+  <footer>
+   <div class="footer-container">
+    <div class="footer-section">
+     <h4>Digital Bharat</h4>
+     <p>Your complete gateway to India's heritage, knowledge, and future. Explore, learn, and celebrate the diversity of India.</p>
+    </div>
+    <div class="footer-section">
+     <h4>Quick Links</h4><a href="#home">Home</a> <a href="#about">About India</a> <a href="#history">History</a> <a href="#government">Government</a> <a href="#states">States</a>
+    </div>
+    <div class="footer-section">
+     <h4>Explore</h4><a href="#defence">Defence</a> <a href="#sports">Sports</a> <a href="#space">Space</a> <a href="#tourism">Tourism</a> <a href="#culture">Culture</a>
+    </div>
+    <div class="footer-section">
+     <h4>Resources</h4><a href="#contact">Contact Us</a> <a href="#">Privacy Policy</a> <a href="#">Terms of Service</a> <a href="admin.html" class="admin-link">Admin Panel</a>
+    </div>
+   </div>
+   <div class="footer-divider">
+    <p>© 2024 Digital Bharat - India Information Portal. All rights reserved.</p>
+    <p>Built with 🇮🇳 for India • Made with HTML5, CSS3 &amp; Vanilla JavaScript</p>
+   </div>
+  </footer>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d2ff5090144899d',t:'MTc3MTk0NjUzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
