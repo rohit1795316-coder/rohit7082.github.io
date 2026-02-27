@@ -28,6 +28,7 @@
         html, body {
             height: 100%;
             width: 100%;
+            scroll-behavior: smooth;
         }
 
         :root {
@@ -188,6 +189,23 @@
             justify-content: center;
             color: white;
             font-weight: bold;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(255, 153, 51, 0.3);
+            animation: bounceIcon 0.6s ease-out;
+        }
+
+        @keyframes bounceIcon {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .nav-search {
@@ -850,31 +868,6 @@
         }
 
         /* ========== SEARCH & FILTER STATES ========== */
-        .search-filter {
-            display: flex;
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-xl);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .search-filter input {
-            flex: 1;
-            min-width: 250px;
-            padding: var(--spacing-md);
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-md);
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            transition: all var(--transition-fast);
-        }
-
-        .search-filter input:focus {
-            outline: none;
-            border-color: var(--primary-saffron);
-            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
-        }
-
         .states-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -1576,9 +1569,7 @@
     <p class="section-subtitle">Discover the essence of India</p>
     <div class="card-grid">
      <!-- Geography Card -->
-     <div class="card fade-in">
-      <div class="card-image"><img src="image 4.jpg" alt="Geography of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Geography unavailable';">
-      </div>
+     <div class="card fade-in"><img class="card-image" src="image 4.jpg" alt="Geography of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Geography placeholder';">
       <div class="card-content">
        <h3 class="card-title">Geography</h3>
        <p class="card-description">India spans over 3.28 million square kilometers, making it the 7th largest country by area. It features diverse landscapes from the Himalayas to tropical beaches.</p>
@@ -1587,9 +1578,7 @@
        </div>
       </div>
      </div><!-- Population Card -->
-     <div class="card fade-in">
-      <div class="card-image"><img src="image 5.jpg" alt="Population of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Population unavailable';">
-      </div>
+     <div class="card fade-in"><img class="card-image" src="image 5.jpg" alt="Population of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Population placeholder';">
       <div class="card-content">
        <h3 class="card-title">Population</h3>
        <p class="card-description">With over 1.4 billion people, India is the world's most populous country. It's home to diverse religions, cultures, and communities living together.</p>
@@ -1598,9 +1587,7 @@
        </div>
       </div>
      </div><!-- Economy Card -->
-     <div class="card fade-in">
-      <div class="card-image"><img src="image 6.avif" alt="Indian Economy" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Economy unavailable';">
-      </div>
+     <div class="card fade-in"><img class="card-image" src="image 6.avif" alt="Economy of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Economy placeholder';">
       <div class="card-content">
        <h3 class="card-title">Economy</h3>
        <p class="card-description">India has the 5th largest economy globally. It's rapidly growing with sectors like IT, manufacturing, agriculture, and services driving development.</p>
@@ -1609,9 +1596,7 @@
        </div>
       </div>
      </div><!-- Culture Card -->
-     <div class="card fade-in">
-      <div class="card-image"><img src="image 7.avif" alt="Indian Culture" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Culture unavailable';">
-      </div>
+     <div class="card fade-in"><img class="card-image" src="image 7.avif" alt="Culture of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Culture placeholder';">
       <div class="card-content">
        <h3 class="card-title">Culture</h3>
        <p class="card-description">Indian culture is one of the world's oldest and most vibrant. It encompasses art, music, dance, philosophy, and traditions spanning millennia.</p>
@@ -1620,9 +1605,7 @@
        </div>
       </div>
      </div><!-- Languages Card -->
-     <div class="card fade-in">
-      <div class="card-image"><img src="image 8.avif" alt="Indian Languages" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Languages unavailable';">
-      </div>
+     <div class="card fade-in"><img class="card-image" src="image 8.avif" alt="Languages of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Languages placeholder';">
       <div class="card-content">
        <h3 class="card-title">Languages</h3>
        <p class="card-description">India recognizes 22 official languages. Hindi and English are widely spoken, while hundreds of regional languages and dialects are used across the country.</p>
@@ -1631,9 +1614,7 @@
        </div>
       </div>
      </div><!-- National Symbols Card -->
-     <div class="card fade-in">
-      <div class="card-image"><img src="image 9.jpg" alt="Indian National Symbols" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='National Symbols unavailable';">
-      </div>
+     <div class="card fade-in"><img class="card-image" src="image 9.jpg" alt="National Symbols of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='National Symbols placeholder';">
       <div class="card-content">
        <h3 class="card-title">National Symbols</h3>
        <p class="card-description">National Animal: Bengal Tiger | National Bird: Indian Peacock | National Flower: Lotus | National Tree: Banyan</p>
@@ -1648,34 +1629,38 @@
     <h2 class="section-title">Indian History</h2>
     <p class="section-subtitle">Timeline of India's remarkable journey</p>
     <div class="timeline">
-     <div class="timeline-item fade-in">
+     <div class="timeline-item fade-in"><img class="timeline-image" src="image 40.avif" alt="Ancient India" loading="lazy" style="width: 200px; height: 150px; border-radius: 8px; margin-bottom: 1rem;" onerror="this.style.background='linear-gradient(135deg, #FF9933 0%, #138808 100%)'; this.alt='Ancient India placeholder';">
       <div class="timeline-content">
        <h4>Ancient India (3000 BCE - 1200 CE)</h4>
        <p>The Indus Valley Civilization, Vedic Period, Mauryan Empire, and Gupta Empire shaped India's foundation with advancements in science, mathematics, and philosophy.</p>
       </div>
-      <div class="timeline-dot"><img src="https://via.placeholder.com/40x40?text=Ancient" alt="Ancient India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.textContent='📜';" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      <div class="timeline-dot">
+       📜
       </div>
      </div>
      <div class="timeline-item fade-in">
-      <div class="timeline-dot"><img src="https://via.placeholder.com/40x40?text=Medieval" alt="Medieval India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.textContent='🏰';" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      <div class="timeline-dot">
+       🏰
       </div>
-      <div class="timeline-content">
+      <div class="timeline-content"><img class="timeline-image" src="image 41.jpg" alt="Medieval India" loading="lazy" style="width: 200px; height: 150px; border-radius: 8px; margin-bottom: 1rem;" onerror="this.style.background='linear-gradient(135deg, #FF9933 0%, #138808 100%)'; this.alt='Medieval India placeholder';">
        <h4>Medieval India (1200 - 1757)</h4>
        <p>Delhi Sultanate, Mughal Empire brought Islamic culture, Persian influence, and architectural wonders like the Taj Mahal to the subcontinent.</p>
       </div>
      </div>
      <div class="timeline-item fade-in">
-      <div class="timeline-content">
+      <div class="timeline-content"><img class="timeline-image" src="image 42.jpg" alt="Freedom Movement" loading="lazy" style="width: 200px; height: 150px; border-radius: 8px; margin-bottom: 1rem;" onerror="this.style.background='linear-gradient(135deg, #FF9933 0%, #138808 100%)'; this.alt='Freedom Movement placeholder';">
        <h4>British Raj &amp; Freedom Movement (1757 - 1947)</h4>
        <p>British colonial rule led by inspiring leaders like Gandhi, Nehru, and Ambedkar resulted in India's independence on August 15, 1947.</p>
       </div>
-      <div class="timeline-dot"><img src="https://via.placeholder.com/40x40?text=Freedom" alt="Freedom Movement" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.textContent='🕯️';" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      <div class="timeline-dot">
+       🕯️
       </div>
      </div>
      <div class="timeline-item fade-in">
-      <div class="timeline-dot"><img src="https://via.placeholder.com/40x40?text=Modern" alt="Modern India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.textContent='🚀';" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      <div class="timeline-dot">
+       🚀
       </div>
-      <div class="timeline-content">
+      <div class="timeline-content"><img class="timeline-image" src="image 43.jpg" alt="Modern India" loading="lazy" style="width: 200px; height: 150px; border-radius: 8px; margin-bottom: 1rem;" onerror="this.style.background='linear-gradient(135deg, #FF9933 0%, #138808 100%)'; this.alt='Modern India placeholder';">
        <h4>Modern India (1947 - Present)</h4>
        <p>Independent India became a sovereign democratic republic, developed nuclear technology, achieved space exploration, and emerged as a global technological leader.</p>
       </div>
@@ -1686,9 +1671,7 @@
     <h2 class="section-title">Government &amp; Politics</h2>
     <p class="section-subtitle">Structure of India's Democratic Governance</p>
     <div class="card-grid">
-     <div class="card fade-in" onclick="openModal('presidentModal')">
-      <div class="card-image"><img src="image 10.jpg" alt="President of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='President unavailable';">
-      </div>
+     <div class="card fade-in" onclick="openModal('presidentModal')"><img class="card-image" src="image 10.jpg" alt="President of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='President placeholder';">
       <div class="card-content">
        <h3 class="card-title">President</h3>
        <p class="card-description">Head of State of India. The President is elected by members of parliament and state legislatures for a 5-year term.</p>
@@ -1697,9 +1680,7 @@
        </div>
       </div>
      </div>
-     <div class="card fade-in" onclick="openModal('primeMinisterModal')">
-      <div class="card-image"><img src="image 11.jpg" alt="Prime Minister of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Prime Minister unavailable';">
-      </div>
+     <div class="card fade-in" onclick="openModal('primeMinisterModal')"><img class="card-image" src="image 11.jpg" alt="Prime Minister of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Prime Minister placeholder';">
       <div class="card-content">
        <h3 class="card-title">Prime Minister</h3>
        <p class="card-description">Head of Government and chief executive. The PM is typically the leader of the majority party in the Lok Sabha.</p>
@@ -1708,9 +1689,7 @@
        </div>
       </div>
      </div>
-     <div class="card fade-in" onclick="openModal('parliamentModal')">
-      <div class="card-image"><img src="image 12.avif" alt="Parliament of India" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Parliament unavailable';">
-      </div>
+     <div class="card fade-in" onclick="openModal('parliamentModal')"><img class="card-image" src="image 12.avif" alt="Parliament of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Parliament placeholder';">
       <div class="card-content">
        <h3 class="card-title">Parliament</h3>
        <p class="card-description">Bicameral legislature: Lok Sabha (Lower House) with 545 members &amp; Rajya Sabha (Upper House) with 245 members.</p>
@@ -1719,9 +1698,7 @@
        </div>
       </div>
      </div>
-     <div class="card fade-in" onclick="openModal('constitutionModal')">
-      <div class="card-image"><img src="image 13.avif" alt="Indian Constitution" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Constitution unavailable';">
-      </div>
+     <div class="card fade-in" onclick="openModal('constitutionModal')"><img class="card-image" src="image 13.avif" alt="Constitution of India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Constitution placeholder';">
       <div class="card-content">
        <h3 class="card-title">Constitution</h3>
        <p class="card-description">World's longest constitution adopted in 1950. It guarantees fundamental rights and establishes India as a sovereign democratic republic.</p>
@@ -1730,9 +1707,7 @@
        </div>
       </div>
      </div>
-     <div class="card fade-in" onclick="openModal('judiciaryModal')">
-      <div class="card-image"><img src="image 14.jpg" alt="Indian Judiciary" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Judiciary unavailable';">
-      </div>
+     <div class="card fade-in" onclick="openModal('judiciaryModal')"><img class="card-image" src="image 14.jpg" alt="Indian Judiciary" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Judiciary placeholder';">
       <div class="card-content">
        <h3 class="card-title">Judiciary</h3>
        <p class="card-description">Supreme Court is the highest judicial authority. Independent judiciary ensures justice and constitutional protection for all citizens.</p>
@@ -1741,9 +1716,7 @@
        </div>
       </div>
      </div>
-     <div class="card fade-in" onclick="openModal('electionsModal')">
-      <div class="card-image"><img src="image 15.jpg" alt="Indian Elections" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Elections unavailable';">
-      </div>
+     <div class="card fade-in" onclick="openModal('electionsModal')"><img class="card-image" src="image 15.jpg" alt="Elections in India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Elections placeholder';">
       <div class="card-content">
        <h3 class="card-title">Elections</h3>
        <p class="card-description">World's largest democracy conducts periodic elections. Universal adult suffrage ensures every citizen over 18 can vote.</p>
@@ -1757,9 +1730,6 @@
    <section id="states">
     <h2 class="section-title">States &amp; Union Territories</h2>
     <p class="section-subtitle">Explore all 28 States and 8 Union Territories of India</p>
-    <div class="search-filter">
-     <input type="text" id="stateSearch" placeholder="Search states or Union Territories...">
-    </div>
     <div class="states-grid" id="statesContainer">
      <!-- States will be dynamically loaded here -->
     </div>
@@ -1768,10 +1738,7 @@
     <h2 class="section-title">Indian Defence</h2>
     <p class="section-subtitle">Armed Forces of India</p>
     <div class="card-grid">
-     <div class="section-card fade-in">
-      <div class="card-image">
-       🎖️
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 16.jpg" alt="Indian Army" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Indian Army placeholder';">
       <div class="card-content">
        <h3 class="card-title">Indian Army</h3>
        <p class="card-description">World's 2nd largest army by personnel. Protects national borders and maintains internal security. Headquarters in New Delhi.</p>
@@ -1780,10 +1747,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in">
-      <div class="card-image">
-       ⚓
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 17.jpg" alt="Indian Navy" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Indian Navy placeholder';">
       <div class="card-content">
        <h3 class="card-title">Indian Navy</h3>
        <p class="card-description">Safeguards maritime interests and coastlines. Operates aircraft carriers and advanced warships. Protects over 7,000 km of coastline.</p>
@@ -1792,10 +1756,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in">
-      <div class="card-image">
-       ✈️
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 19.jpg" alt="Indian Air Force" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Indian Air Force placeholder';">
       <div class="card-content">
        <h3 class="card-title">Indian Air Force</h3>
        <p class="card-description">4th largest air force globally. Defends airspace and conducts aerial combat. Equipped with advanced fighter jets and helicopters.</p>
@@ -1810,10 +1771,7 @@
     <h2 class="section-title">Indian Sports</h2>
     <p class="section-subtitle">Achievements in Global Sports</p>
     <div class="card-grid">
-     <div class="section-card fade-in">
-      <div class="card-image">
-       🏏
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 20.jpg" alt="Cricket in India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Cricket placeholder';">
       <div class="card-content">
        <h3 class="card-title">Cricket</h3>
        <p class="card-description">Cricket is the most popular sport in India. Indian Cricket Team won the ICC World Cup in 1983 and 2011. Home to IPL (Indian Premier League).</p>
@@ -1822,10 +1780,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in">
-      <div class="card-image">
-       🏑
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 21.jpg" alt="Hockey in India" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Hockey placeholder';">
       <div class="card-content">
        <h3 class="card-title">Hockey</h3>
        <p class="card-description">National sport of India. Indian Hockey Team won 8 Olympic Gold medals. Currently experiencing a resurgence in international competitions.</p>
@@ -1834,10 +1789,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in">
-      <div class="card-image">
-       🥇
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 22.jpg" alt="Olympics" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Olympics placeholder';">
       <div class="card-content">
        <h3 class="card-title">Olympics</h3>
        <p class="card-description">India hosted Asian Games multiple times. Athletes excel in weightlifting, badminton, wrestling, and athletics. Recent Olympic successes with multiple medal winners.</p>
@@ -1846,10 +1798,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in">
-      <div class="card-image">
-       🏅
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 23.png" alt="Sports Achievements" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Achievements placeholder';">
       <div class="card-content">
        <h3 class="card-title">Achievements</h3>
        <p class="card-description">Indian athletes have won medals in badminton, tennis, shooting, wrestling, and weightlifting. Success in Paralympics showcases inclusive sporting spirit.</p>
@@ -1864,10 +1813,7 @@
     <h2 class="section-title">Space &amp; Science</h2>
     <p class="section-subtitle">India's Journey to Space Exploration</p>
     <div class="card-grid">
-     <div class="section-card fade-in">
-      <div class="card-image">
-       🚀
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 24.png" alt="ISRO - Indian Space Research Organisation" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='ISRO placeholder';">
       <div class="card-content">
        <h3 class="card-title">ISRO</h3>
        <p class="card-description">Indian Space Research Organisation - A pioneer in space technology. Developed indigenous satellite systems and launch vehicles. Leading Asian space agencies.</p>
@@ -1876,10 +1822,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in">
-      <div class="card-image">
-       🌙
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 25.png" alt="Chandrayaan - Lunar Mission" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Chandrayaan placeholder';">
       <div class="card-content">
        <h3 class="card-title">Chandrayaan</h3>
        <p class="card-description">India's lunar exploration mission. Chandrayaan-1 was the first Indian lunar spacecraft. Chandrayaan-3 successfully landed on the Moon's south pole in 2023.</p>
@@ -1888,10 +1831,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in">
-      <div class="card-image">
-       👨‍🚀
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 26.png" alt="Gaganyaan - Human Spaceflight" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Gaganyaan placeholder';">
       <div class="card-content">
        <h3 class="card-title">Gaganyaan</h3>
        <p class="card-description">India's human spaceflight program. Aims to send Indian astronauts to space. Expected to make India the 4th country to send humans to space.</p>
@@ -1900,10 +1840,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in">
-      <div class="card-image">
-       🔬
-      </div>
+     <div class="section-card fade-in"><img class="card-image" src="image 27.png" alt="Space Research" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Research placeholder';">
       <div class="card-content">
        <h3 class="card-title">Research</h3>
        <p class="card-description">India excels in satellite technology, GPS systems (NavIC), and planetary missions. Active research in astronomy, astrophysics, and climate science.</p>
@@ -1918,60 +1855,42 @@
     <h2 class="section-title">Tourism &amp; Heritage Sites</h2>
     <p class="section-subtitle">Explore India's iconic monuments and destinations</p>
     <div class="gallery-grid">
-     <div class="gallery-item fade-in" onclick="openLightbox('taj-mahal')">
-      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #e8a4c1 0%, #f5deb3 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-       🕌
-      </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('taj-mahal')"><img src="image 28.jpg" alt="Taj Mahal - Monument to Love" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #e8a4c1 0%, #f5deb3 100%)'; this.alt='Taj Mahal placeholder';" style="width: 100%; height: 100%; object-fit: cover;">
       <div class="gallery-overlay">
        <div class="gallery-icon">
         🔍
        </div>
       </div>
      </div>
-     <div class="gallery-item fade-in" onclick="openLightbox('red-fort')">
-      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #d2691e 0%, #cd853f 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-       🏯
-      </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('red-fort')"><img src="image 29.jpg" alt="Red Fort - Delhi Heritage" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #d2691e 0%, #cd853f 100%)'; this.alt='Red Fort placeholder';" style="width: 100%; height: 100%; object-fit: cover;">
       <div class="gallery-overlay">
        <div class="gallery-icon">
         🔍
        </div>
       </div>
      </div>
-     <div class="gallery-item fade-in" onclick="openLightbox('qutub-minar')">
-      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-       🗼
-      </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('qutub-minar')"><img src="image 30.webp" alt="Qutub Minar - Architectural Marvel" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #a0522d 0%, #8b4513 100%)'; this.alt='Qutub Minar placeholder';" style="width: 100%; height: 100%; object-fit: cover;">
       <div class="gallery-overlay">
        <div class="gallery-icon">
         🔍
        </div>
       </div>
      </div>
-     <div class="gallery-item fade-in" onclick="openLightbox('gateway-india')">
-      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #704214 0%, #8b6914 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-       ⛩️
-      </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('gateway-india')"><img src="image 31.webp" alt="Gateway of India - Mumbai" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #704214 0%, #8b6914 100%)'; this.alt='Gateway of India placeholder';" style="width: 100%; height: 100%; object-fit: cover;">
       <div class="gallery-overlay">
        <div class="gallery-icon">
         🔍
        </div>
       </div>
      </div>
-     <div class="gallery-item fade-in" onclick="openLightbox('varanasi')">
-      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #ffa500 0%, #ff69b4 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-       🕉️
-      </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('varanasi')"><img src="image 32.avif" alt="Varanasi - Spiritual Heart" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #ffa500 0%, #ff69b4 100%)'; this.alt='Varanasi placeholder';" style="width: 100%; height: 100%; object-fit: cover;">
       <div class="gallery-overlay">
        <div class="gallery-icon">
         🔍
        </div>
       </div>
      </div>
-     <div class="gallery-item fade-in" onclick="openLightbox('himalaya')">
-      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #87ceeb 0%, #add8e6 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
-       ⛰️
-      </div>
+     <div class="gallery-item fade-in" onclick="openLightbox('himalaya')"><img src="image 33.avif" alt="Himalayan Ranges - Northern Beauty" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #87ceeb 0%, #add8e6 100%)'; this.alt='Himalayas placeholder';" style="width: 100%; height: 100%; object-fit: cover;">
       <div class="gallery-overlay">
        <div class="gallery-icon">
         🔍
@@ -1984,10 +1903,7 @@
     <h2 class="section-title">Culture &amp; Festivals</h2>
     <p class="section-subtitle">Celebrate the diversity and traditions of India</p>
     <div class="card-grid">
-     <div class="section-card fade-in" onclick="openModal('diwalliModal')">
-      <div class="card-image">
-       🪔
-      </div>
+     <div class="section-card fade-in" onclick="openModal('diwalliModal')"><img class="card-image" src="image 34.jpg" alt="Diwali - Festival of Lights" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Diwali placeholder';">
       <div class="card-content">
        <h3 class="card-title">Diwali</h3>
        <p class="card-description">Festival of Lights celebrated by millions. Symbolizes triumph of light over darkness and good over evil. Celebrated in October/November.</p>
@@ -1996,10 +1912,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in" onclick="openModal('holiModal')">
-      <div class="card-image">
-       🎨
-      </div>
+     <div class="section-card fade-in" onclick="openModal('holiModal')"><img class="card-image" src="image 35.jpg" alt="Holi - Festival of Colors" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Holi placeholder';">
       <div class="card-content">
        <h3 class="card-title">Holi</h3>
        <p class="card-description">Festival of Colors celebrating spring and love. People play with colored powder and water. Celebrated in March.</p>
@@ -2008,10 +1921,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in" onclick="openModal('eidModal')">
-      <div class="card-image">
-       🌙
-      </div>
+     <div class="section-card fade-in" onclick="openModal('eidModal')"><img class="card-image" src="image 36.webp" alt="Eid - Islamic Festival" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Eid placeholder';">
       <div class="card-content">
        <h3 class="card-title">Eid</h3>
        <p class="card-description">Islamic festival marking end of Ramadan. Celebrated with prayers, feasts, and family gatherings. Two main festivals: Eid ul-Fitr and Eid ul-Adha.</p>
@@ -2020,10 +1930,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in" onclick="openModal('navaratriModal')">
-      <div class="card-image">
-       💃
-      </div>
+     <div class="section-card fade-in" onclick="openModal('navaratriModal')"><img class="card-image" src="image 37.jpg" alt="Navratri - Nine Nights Festival" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Navratri placeholder';">
       <div class="card-content">
        <h3 class="card-title">Navratri</h3>
        <p class="card-description">Nine nights festival honoring Goddess Durga. Featuring Garba and Dandiya dances. Celebrated in September/October across India.</p>
@@ -2032,10 +1939,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in" onclick="openModal('pongalModal')">
-      <div class="card-image">
-       🌾
-      </div>
+     <div class="section-card fade-in" onclick="openModal('pongalModal')"><img class="card-image" src="image 38.avif" alt="Pongal - Harvest Festival" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Pongal placeholder';">
       <div class="card-content">
        <h3 class="card-title">Pongal</h3>
        <p class="card-description">South Indian harvest festival thanking the sun god. Traditional rice dish "Pongal" gives festival its name. Celebrated in January.</p>
@@ -2044,10 +1948,7 @@
        </div>
       </div>
      </div>
-     <div class="section-card fade-in" onclick="openModal('republicModal')">
-      <div class="card-image">
-       🇮🇳
-      </div>
+     <div class="section-card fade-in" onclick="openModal('republicModal')"><img class="card-image" src="image 39.jpg" alt="Republic Day - National Day" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #1a237e 0%, #3949ab 100%)'; this.alt='Republic Day placeholder';">
       <div class="card-content">
        <h3 class="card-title">Republic Day</h3>
        <p class="card-description">Celebrates India's Constitution (January 26). Grand parades showcase India's diversity, military power, and cultural heritage.</p>
@@ -2683,7 +2584,7 @@
             const mailtoLink = `mailto:rohittsep22@gmail.com?subject=${subject}&body=${body}`;
 
             // Open mail client
-            window.location.href = mailtoLink;
+            window.open(mailtoLink, '_blank');
 
             // Show success message
             showSuccessMessage();
@@ -2877,5 +2778,5 @@
     <p>Built with 🇮🇳 for India • Made with HTML5, CSS3 &amp; Vanilla JavaScript</p>
    </div>
   </footer>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d2ff5090144899d',t:'MTc3MTk0NjUzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d3f97b1b3523e74',t:'MTc3MjExMDQ4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
